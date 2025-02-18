@@ -6,8 +6,15 @@
     <description>Recent content on tsiyukino&#39;s blog</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 18 Feb 2025 06:01:17 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 18 Feb 2025 16:11:00 +0000</lastBuildDate>
     <atom:link href="https://tsiyukino.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Acid Base Theories</title>
+      <link>https://tsiyukino.github.io/blog/post/chemistry-index/acid-base-theories/</link>
+      <pubDate>Tue, 18 Feb 2025 10:43:02 -0500</pubDate>
+      <guid>https://tsiyukino.github.io/blog/post/chemistry-index/acid-base-theories/</guid>
+      <description>Acid-base chemistry is fundamental to many chemical processes.  This page explores the evolution of acid-base definitions, starting with the restrictive Arrhenius theory, expanding to the more inclusive Brønsted-Lowry theory, and culminating in the broadest definition offered by Lewis. Each theory provides a framework for understanding acid-base behavior, but each also has limitations.</description>
+    </item>
     <item>
       <title>Readme</title>
       <link>https://tsiyukino.github.io/blog/readme/</link>
