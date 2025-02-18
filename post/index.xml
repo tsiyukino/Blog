@@ -6,8 +6,15 @@
     <description>Recent content in Posts on tsiyukino&#39;s blog</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 18 Feb 2025 04:13:30 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 18 Feb 2025 04:54:50 +0000</lastBuildDate>
     <atom:link href="https://tsiyukino.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Chemistry Index</title>
+      <link>https://tsiyukino.github.io/blog/post/chemistry-index/</link>
+      <pubDate>Mon, 17 Feb 2025 23:17:16 -0500</pubDate>
+      <guid>https://tsiyukino.github.io/blog/post/chemistry-index/</guid>
+      <description>This index provides a quick reference to key concepts and topics in chemistry.</description>
+    </item>
     <item>
       <title>Hugo</title>
       <link>https://tsiyukino.github.io/blog/post/hugo/</link>
@@ -16,10 +23,10 @@
       <description></description>
     </item>
     <item>
-      <title>Hello_World</title>
-      <link>https://tsiyukino.github.io/blog/post/hello_world/</link>
+      <title>Hello World</title>
+      <link>https://tsiyukino.github.io/blog/post/hello-world/</link>
       <pubDate>Mon, 17 Feb 2025 22:55:01 -0500</pubDate>
-      <guid>https://tsiyukino.github.io/blog/post/hello_world/</guid>
+      <guid>https://tsiyukino.github.io/blog/post/hello-world/</guid>
       <description>My first blog post</description>
     </item>
   </channel>
