@@ -6,14 +6,21 @@
     <description>Recent content in Posts on tsiyukino&#39;s blog</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 18 Feb 2025 03:12:06 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 18 Feb 2025 04:13:30 +0000</lastBuildDate>
     <atom:link href="https://tsiyukino.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hugo</title>
+      <link>https://tsiyukino.github.io/blog/post/hugo/</link>
+      <pubDate>Mon, 17 Feb 2025 22:55:11 -0500</pubDate>
+      <guid>https://tsiyukino.github.io/blog/post/hugo/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Hello_World</title>
       <link>https://tsiyukino.github.io/blog/post/hello_world/</link>
-      <pubDate>Mon, 17 Feb 2025 21:38:12 -0500</pubDate>
+      <pubDate>Mon, 17 Feb 2025 22:55:01 -0500</pubDate>
       <guid>https://tsiyukino.github.io/blog/post/hello_world/</guid>
-      <description></description>
+      <description>My first blog post</description>
     </item>
   </channel>
 </rss>
