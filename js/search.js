@@ -1,126 +1,116 @@
-// Wait for DOM content to load
-document.addEventListener('DOMContentLoaded', function() {
-    // Get search form and add submit event listener
-    const searchForm = document.getElementById('search-form');
-    if (searchForm) {
-        searchForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const searchInput = document.querySelector('.Header-search-input');
-            if (searchInput) {
-                const searchTerm = searchInput.value.trim();
-                if (searchTerm) {
-                    // Redirect to search page with query parameter
-                    window.location.href = `/blog/search/?q=${encodeURIComponent(searchTerm)}`;
-                }
-            }
+(() => {
+  fetch('/index.json')
+  .then(response => response.json())
+  .then(data => {
+    const fuse = new Fuse(data, {
+      keys: ['title', 'content'],
+      shouldSort: true,
+      includeMatches: true,
+      minMatchCharLength: 2,
+      threshold: 0.0,
+      ignoreLocation: true,
+    })
+  
+    document.getElementById('search-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const data = new FormData(e.target)
+      // data.entries() returns iterator, [...data.entries()] returns [["q", "input"]]
+      const input = [...data.entries()][0][1]
+      const results = fuse.search(input)
+      displayResults(input, results)
+    });
+  });
+})();
+
+function displayResults(input, results) {
+  const searchResults = document.getElementById('search-result');
+  searchResults.setAttribute('style', 'display: block;')
+  searchResults.nextElementSibling.setAttribute('style', 'display: none;')
+  let html = renderResultsCountHtml(results.length, input)
+  if (results.length > 0) {
+    let li = renderResultsItemHtml(results)
+    html += `<ul>${li}</ul>`
+  }
+  searchResults.innerHTML = html
+}
+
+function renderResultsCountHtml(count, input) {
+  let html = `
+<div class="TableObject border-gray-light py-3 mt-6">
+  <div class="user-repo-search-results-summary TableObject-item TableObject-item--primary v-align-top">
+    <strong>${count}</strong>
+      results
+      for "<strong>${input}</strong>"
+  </div>
+</div>
+`
+  return html
+}
+
+function renderResultsItemHtml(results) {
+  // modified from https://github.com/brunocechet/Fuse.js-with-highlight
+  var highlighter = function(resultItem){
+    resultItem.matches.forEach((matchItem) => {
+      var text = resultItem.item[matchItem.key];
+      var result = []
+      var matches = [].concat(matchItem.indices);
+      var pair = matches.shift()
+      
+      for (var i = 0; i < text.length; i++) {
+        var char = text.charAt(i)
+        if (pair && i == pair[0]) {
+          result.push('<span style="color: red;">')
+        }
+        result.push(char)
+        if (pair && i == pair[1]) {
+          result.push('</span>')
+          pair = matches.shift()
+        }
+      }
+      resultItem.highlight = result.join('');
+  
+      if(resultItem.children && resultItem.children.length > 0){
+        resultItem.children.forEach((child) => {
+          highlighter(child);
         });
+      }
+    });
+  };  
+
+  let html = ``
+  results.forEach(result => {
+    highlighter(result)
+    // truncated highlight content
+    let truncated = result.highlight.substring(0, 2000)
+    const reg = /(<span style="color: red;">[a-zA-Z0-9\u4e00-\u9fa5]+<\/span>)/g
+    let array = truncated.split(reg)
+    // drop unstable part
+    array.pop()
+    let content = ""
+    if (array.length > 0) {
+      content = array.join('')
+    } else {
+      // fallback to no highlighted truncated content
+      content = result.item.content.substring(0, 2000)
     }
-});
+    html += `
+<li class="col-12 d-flex width-full py-4 border-top color-border-secondary public source">
+  <div class="col-12 d-inline-block">
+    <div class="d-inline-block mb-1">
+      <h3 class="wb-break-all">
+        <a href="${result.item.permalink}">${result.item.title}</a>
+      </h3>
+    </div>
 
-// Function to get URL parameters
-function getQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-}
+    <div>
+      <div class="col-12 d-inline-block text-gray mb-2 pr-4">
+        ${content} ...
+      </div>
+    </div>
 
-// Function to perform search
-async function performSearch() {
-    const searchTerm = getQueryParam('q');
-    if (!searchTerm) return;
-
-    try {
-        console.log('Fetching search index...');
-        // Fetch the search index
-        const response = await fetch('/blog/index.json');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const searchData = await response.json();
-        console.log('Search data loaded:', searchData.length, 'items');
-
-        // Configure Fuse.js options
-        const options = {
-            keys: ['title', 'content', 'summary', 'tags'],
-            threshold: 0.3,
-            includeMatches: true,
-            minMatchCharLength: 2
-        };
-
-        const fuse = new Fuse(searchData, options);
-        const results = fuse.search(searchTerm);
-        console.log('Search results:', results.length, 'items found');
-
-        // Display results
-        const searchResults = document.getElementById('search-result');
-        if (searchResults) {
-            searchResults.style.display = 'block';
-            
-            if (results.length === 0) {
-                searchResults.innerHTML = `
-                    <div class="px-3 py-4">
-                        <h3>No results found for "${searchTerm}"</h3>
-                        <p>Try different keywords or check your spelling.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            let resultsHTML = `
-                <div class="px-3 py-4">
-                    <h3>${results.length} results for "${searchTerm}"</h3>
-                </div>
-                <ul class="px-3">
-            `;
-
-            results.forEach(({ item }) => {
-                resultsHTML += `
-                    <li class="col-12 d-flex width-full py-4 border-bottom color-border-secondary public source">
-                        <div class="col-12 d-inline-block">
-                            <div class="d-inline-block mb-1">
-                                <h3 class="wb-break-all">
-                                    <a href="${item.relpermalink}">${item.title}</a>
-                                </h3>
-                            </div>
-                            <div>
-                                <div class="col-12 d-inline-block text-gray mb-2 pr-4">
-                                    ${item.summary || (item.content ? item.content.substring(0, 200) + '...' : '')}
-                                </div>
-                            </div>
-                            <div class="f6 text-gray mt-2">
-                                ${item.tags ? item.tags.map(tag => `
-                                    <a class="muted-link mr-3" href="/blog/tags/${tag}">
-                                        <svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1" width="16" height="16">
-                                            <path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path>
-                                        </svg>
-                                        ${tag}
-                                    </a>
-                                `).join('') : ''}
-                                ${item.date ? `<span class="ml-0">Published <relative-time datetime="${new Date(item.date * 1000).toISOString()}">${new Date(item.date * 1000).toLocaleDateString()}</relative-time></span>` : ''}
-                            </div>
-                        </div>
-                    </li>
-                `;
-            });
-
-            resultsHTML += '</ul>';
-            searchResults.innerHTML = resultsHTML;
-        }
-    } catch (error) {
-        console.error('Search error:', error);
-        const searchResults = document.getElementById('search-result');
-        if (searchResults) {
-            searchResults.innerHTML = `
-                <div class="px-3 py-4">
-                    <h3>Error performing search</h3>
-                    <p>Please try again later. Error: ${error.message}</p>
-                </div>
-            `;
-        }
-    }
-}
-
-// Check if we're on the search page and perform search
-if (window.location.pathname.includes('/search/')) {
-    console.log('On search page, performing search...');
-    performSearch();
+  </div>
+</li>
+`
+  })
+  return html
 }
