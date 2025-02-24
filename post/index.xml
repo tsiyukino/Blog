@@ -6,8 +6,15 @@
     <description>Recent content in Posts on tsiyukino&#39;s blog</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 19 Feb 2025 19:43:39 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 24 Feb 2025 20:55:20 +0000</lastBuildDate>
     <atom:link href="https://tsiyukino.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Acid Base Equilibrium</title>
+      <link>https://tsiyukino.github.io/blog/post/chemistry-index/acid-base-equilibrium/</link>
+      <pubDate>Mon, 24 Feb 2025 15:42:23 -0500</pubDate>
+      <guid>https://tsiyukino.github.io/blog/post/chemistry-index/acid-base-equilibrium/</guid>
+      <description>In aqueous solutions, acid-base equilibria represent some of the most fundamental chemical processes, governing everything from biological systems to industrial processes.</description>
+    </item>
     <item>
       <title>Command Line Index</title>
       <link>https://tsiyukino.github.io/blog/post/command-line-index/</link>
