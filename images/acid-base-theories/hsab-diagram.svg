@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 650">
+  <style>
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #1a1a1a; }
+      .title, .subtitle, .header, .label { fill: #ffffff; }
+      .divider { stroke: #666666; }
+      .hard-box { fill: #2d5986; }
+      .soft-box { fill: #734d26; }
+      .borderline-box { fill: #4d4d4d; }
+      .acid-color { fill: #d46a6a; }
+      .base-color { fill: #6ab0d4; }
+      .arrow { stroke: #ffffff; fill: #ffffff; }
+      .principle-box { stroke: #666666; fill: rgba(80, 80, 80, 0.2); }
+    }
+    @media (prefers-color-scheme: light) {
+      .bg { fill: #ffffff; }
+      .title, .subtitle, .header, .label { fill: #000000; }
+      .divider { stroke: #888888; }
+      .hard-box { fill: #99c2ff; }
+      .soft-box { fill: #d4a667; }
+      .borderline-box { fill: #cccccc; }
+      .acid-color { fill: #ff9999; }
+      .base-color { fill: #99ccff; }
+      .arrow { stroke: #000000; fill: #000000; }
+      .principle-box { stroke: #000000; fill: rgba(240, 240, 240, 0.6); }
+    }
+  </style>
+  
+  <!-- Background -->
+  <rect class="bg" width="800" height="650" rx="10" ry="10" />
+  
+  <!-- Title -->
+  <text class="title" x="400" y="40" font-family="Arial" font-size="24" text-anchor="middle" font-weight="bold">Hard-Soft Acid-Base (HSAB) Principle</text>
+  <text class="subtitle" x="400" y="70" font-family="Arial" font-size="18" text-anchor="middle">Classification of Common Lewis Acids and Bases</text>
+  
+  <!-- Divider -->
+  <line class="divider" x1="50" y1="90" x2="750" y2="90" stroke-width="2" />
+  
+  <!-- HSAB Principle Box at the top -->
+  <rect class="principle-box" x="150" y="100" width="500" height="60" rx="10" ry="10" stroke-width="2" />
+  <text class="label" x="400" y="130" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">"Hard acids prefer hard bases"</text>
+  <text class="label" x="400" y="150" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">"Soft acids prefer soft bases"</text>
+  
+  <!-- Main divider -->
+  <line class="divider" x1="400" y1="170" x2="400" y2="620" stroke-width="3" />
+  
+  <!-- Left side: Acids -->
+  <text class="header acid-color" x="200" y="190" font-family="Arial" font-size="22" text-anchor="middle" font-weight="bold">LEWIS ACIDS</text>
+  <text class="subtitle" x="200" y="215" font-family="Arial" font-size="16" text-anchor="middle" font-style="italic">(electron pair acceptors)</text>
+  
+  <!-- Hard Acids Box -->
+  <rect class="hard-box" x="70" y="230" width="260" height="160" rx="10" ry="10" opacity="0.8" />
+  <text class="header" x="200" y="255" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">HARD ACIDS</text>
+  <text class="label" x="200" y="275" font-family="Arial" font-size="14" text-anchor="middle" font-style="italic">High charge density, small size,</text>
+  <text class="label" x="200" y="295" font-family="Arial" font-size="14" text-anchor="middle" font-style="italic">low polarizability</text>
+  
+  <!-- Hard Acids Examples -->
+  <text class="label" x="90" y="325" font-family="Arial" font-size="14" text-anchor="start">• H⁺, Li⁺, Na⁺, K⁺</text>
+  <text class="label" x="90" y="345" font-family="Arial" font-size="14" text-anchor="start">• Mg²⁺, Ca²⁺, Al³⁺, Fe³⁺</text>
+  <text class="label" x="90" y="365" font-family="Arial" font-size="14" text-anchor="start">• Ti⁴⁺, Cr³⁺, Co³⁺, Sc³⁺</text>
+  <text class="label" x="90" y="385" font-family="Arial" font-size="14" text-anchor="start">• BF₃, AlCl₃, SO₃</text>
+  
+  <!-- Borderline Acids Box -->
+  <rect class="borderline-box" x="70" y="400" width="260" height="90" rx="10" ry="10" opacity="0.8" />
+  <text class="header" x="200" y="425" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">BORDERLINE ACIDS</text>
+  
+  <!-- Borderline Acids Examples -->
+  <text class="label" x="90" y="450" font-family="Arial" font-size="14" text-anchor="start">• Fe²⁺, Co²⁺, Ni²⁺, Cu²⁺, Zn²⁺</text>
+  <text class="label" x="90" y="470" font-family="Arial" font-size="14" text-anchor="start">• Pb²⁺, Sn²⁺, Sb³⁺, Bi³⁺</text>
+  
+  <!-- Soft Acids Box -->
+  <rect class="soft-box" x="70" y="500" width="260" height="120" rx="10" ry="10" opacity="0.8" />
+  <text class="header" x="200" y="525" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">SOFT ACIDS</text>
+  <text class="label" x="200" y="545" font-family="Arial" font-size="14" text-anchor="middle" font-style="italic">Low charge density, large size,</text>
+  <text class="label" x="200" y="565" font-family="Arial" font-size="14" text-anchor="middle" font-style="italic">high polarizability</text>
+  
+  <!-- Soft Acids Examples -->
+  <text class="label" x="90" y="590" font-family="Arial" font-size="14" text-anchor="start">• Cu⁺, Ag⁺, Au⁺, Tl⁺, Hg²⁺</text>
+  <text class="label" x="90" y="610" font-family="Arial" font-size="14" text-anchor="start">• Pd²⁺, Pt²⁺, Hg²⁺, Cd²⁺</text>
+  
+  <!-- Right side: Bases -->
+  <text class="header base-color" x="600" y="190" font-family="Arial" font-size="22" text-anchor="middle" font-weight="bold">LEWIS BASES</text>
+  <text class="subtitle" x="600" y="215" font-family="Arial" font-size="16" text-anchor="middle" font-style="italic">(electron pair donors)</text>
+  
+  <!-- Hard Bases Box -->
+  <rect class="hard-box" x="470" y="230" width="260" height="160" rx="10" ry="10" opacity="0.8" />
+  <text class="header" x="600" y="255" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">HARD BASES</text>
+  <text class="label" x="600" y="275" font-family="Arial" font-size="14" text-anchor="middle" font-style="italic">High electronegativity, low</text>
+  <text class="label" x="600" y="295" font-family="Arial" font-size="14" text-anchor="middle" font-style="italic">polarizability, hard to oxidize</text>
+  
+  <!-- Hard Bases Examples -->
+  <text class="label" x="490" y="325" font-family="Arial" font-size="14" text-anchor="start">• F⁻, OH⁻, H₂O, ROH, R₂O</text>
+  <text class="label" x="490" y="345" font-family="Arial" font-size="14" text-anchor="start">• CO₃²⁻, NO₃⁻, PO₄³⁻, SO₄²⁻</text>
+  <text class="label" x="490" y="365" font-family="Arial" font-size="14" text-anchor="start">• ClO₄⁻, NH₃, RNH₂</text>
+  <text class="label" x="490" y="385" font-family="Arial" font-size="14" text-anchor="start">• CH₃COO⁻, ROH, RO⁻</text>
+  
+  <!-- Borderline Bases Box -->
+  <rect class="borderline-box" x="470" y="400" width="260" height="90" rx="10" ry="10" opacity="0.8" />
+  <text class="header" x="600" y="425" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">BORDERLINE BASES</text>
+  
+  <!-- Borderline Bases Examples -->
+  <text class="label" x="490" y="450" font-family="Arial" font-size="14" text-anchor="start">• C₆H₅NH₂ (aniline), C₅H₅N (pyridine)</text>
+  <text class="label" x="490" y="470" font-family="Arial" font-size="14" text-anchor="start">• N₃⁻, Br⁻, NO₂⁻, SO₃²⁻</text>
+  
+  <!-- Soft Bases Box -->
+  <rect class="soft-box" x="470" y="500" width="260" height="120" rx="10" ry="10" opacity="0.8" />
+  <text class="header" x="600" y="525" font-family="Arial" font-size="18" text-anchor="middle" font-weight="bold">SOFT BASES</text>
+  <text class="label" x="600" y="545" font-family="Arial" font-size="14" text-anchor="middle" font-style="italic">Low electronegativity, high</text>
+  <text class="label" x="600" y="565" font-family="Arial" font-size="14" text-anchor="middle" font-style="italic">polarizability, easily oxidized</text>
+  
+  <!-- Soft Bases Examples -->
+  <text class="label" x="490" y="590" font-family="Arial" font-size="14" text-anchor="start">• I⁻, S²⁻, SCN⁻, CN⁻, H⁻, R⁻</text>
+  <text class="label" x="490" y="610" font-family="Arial" font-size="14" text-anchor="start">• CO, C₂H₄, C₆H₆, R₃P, R₃As</text>
+  
+  <!-- Arrows showing preferred interactions -->
+  <!-- Hard-Hard Arrow (direct line with polygon arrowhead) -->
+  <line class="arrow" x1="330" y1="310" x2="455" y2="310" stroke-width="3" />
+  <polygon class="arrow" points="445,304 465,310 445,316" />
+  
+  <!-- Soft-Soft Arrow (direct line with polygon arrowhead) -->
+  <line class="arrow" x1="330" y1="560" x2="455" y2="560" stroke-width="3" />
+  <polygon class="arrow" points="445,554 465,560 445,566" />
+</svg>

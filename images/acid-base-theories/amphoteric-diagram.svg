@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <style>
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #1a1a1a; }
+      .title, .subtitle, .reaction, .explanation, .acid-base-label { fill: #ffffff; }
+      .divider { stroke: #666666; }
+      .h-ion { fill: #ff7777; }
+      .oh-ion { fill: #77aaff; }
+      .nh4-ion { fill: #77cc77; }
+      .cl-ion { fill: #dddd77; }
+      .h3o-ion { fill: #ffaa77; }
+      .water { fill: #ff8888; }
+    }
+    @media (prefers-color-scheme: light) {
+      .bg { fill: #ffffff; }
+      .title, .subtitle, .reaction, .explanation, .acid-base-label { fill: #000000; }
+      .divider { stroke: #888888; }
+      .h-ion { fill: #ff9999; }
+      .oh-ion { fill: #66aaff; }
+      .nh4-ion { fill: #99cc99; }
+      .cl-ion { fill: #cccc66; }
+      .h3o-ion { fill: #ff9966; }
+      .water { fill: #ff6666; }
+    }
+  </style>
+  
+  <!-- Background -->
+  <rect class="bg" width="800" height="400" rx="10" ry="10" />
+  
+  <!-- Title -->
+  <text class="title" x="400" y="40" font-family="Arial" font-size="24" text-anchor="middle" font-weight="bold">Amphoteric Behavior of Water (H₂O)</text>
+  
+  <!-- Divider -->
+  <line class="divider" x1="400" y1="70" x2="400" y2="370" stroke-width="2" stroke-dasharray="5,5" />
+  
+  <!-- Left side: Water as an Acid -->
+  <text class="title" x="200" y="80" font-family="Arial" font-size="20" text-anchor="middle" font-weight="bold">Water as an Acid</text>
+  <text class="subtitle" x="200" y="105" font-family="Arial" font-size="16" text-anchor="middle">(Donates H⁺)</text>
+  
+  <!-- Left side reaction -->
+  <text class="reaction" x="200" y="160" font-family="Arial" font-size="18" text-anchor="middle">H₂O + NH₃ ⟶ NH₄⁺ + OH⁻</text>
+  
+  <!-- Left side molecule representations -->
+  <!-- Water molecule -->
+  <circle class="water" cx="120" cy="220" r="20" />
+  <text class="title" x="120" y="225" font-family="Arial" font-size="14" text-anchor="middle">H₂O</text>
+  
+  <!-- Arrow -->
+  <line x1="150" y1="220" x2="250" y2="220" stroke="currentColor" stroke-width="2" />
+  <polygon points="250,220 240,215 240,225" fill="currentColor" />
+  
+  <!-- H+ being donated -->
+  <circle class="h-ion" cx="170" cy="200" r="12" />
+  <text class="title" x="170" y="204" font-family="Arial" font-size="12" text-anchor="middle">H⁺</text>
+  
+  <!-- OH- remaining -->
+  <circle class="oh-ion" cx="280" cy="240" r="18" />
+  <text class="title" x="280" y="245" font-family="Arial" font-size="14" text-anchor="middle">OH⁻</text>
+  
+  <!-- Ammonia becoming ammonium -->
+  <circle class="nh4-ion" cx="280" cy="200" r="18" />
+  <text class="title" x="280" y="205" font-family="Arial" font-size="14" text-anchor="middle">NH₄⁺</text>
+  
+  <!-- Left side explanation -->
+  <text class="explanation" x="200" y="300" font-family="Arial" font-size="14" text-anchor="middle" font-style="italic">Water donates a proton (H⁺) to ammonia,</text>
+  <text class="explanation" x="200" y="320" font-family="Arial" font-size="14" text-anchor="middle" font-style="italic">forming hydroxide ion (OH⁻) and ammonium ion (NH₄⁺)</text>
+  <text class="acid-base-label" x="200" y="350" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">Acting as a Brønsted-Lowry acid</text>
+  
+  <!-- Right side: Water as a Base -->
+  <text class="title" x="600" y="80" font-family="Arial" font-size="20" text-anchor="middle" font-weight="bold">Water as a Base</text>
+  <text class="subtitle" x="600" y="105" font-family="Arial" font-size="16" text-anchor="middle">(Accepts H⁺)</text>
+  
+  <!-- Right side reaction -->
+  <text class="reaction" x="600" y="160" font-family="Arial" font-size="18" text-anchor="middle">H₂O + HCl ⟶ H₃O⁺ + Cl⁻</text>
+  
+  <!-- Right side molecule representations -->
+  <!-- Water molecule -->
+  <circle class="water" cx="520" cy="220" r="20" />
+  <text class="title" x="520" y="225" font-family="Arial" font-size="14" text-anchor="middle">H₂O</text>
+  
+  <!-- Arrow -->
+  <line x1="550" y1="220" x2="650" y2="220" stroke="currentColor" stroke-width="2" />
+  <polygon points="650,220 640,215 640,225" fill="currentColor" />
+  
+  <!-- H+ from HCl -->
+  <circle class="h-ion" cx="570" cy="200" r="12" />
+  <text class="title" x="570" y="204" font-family="Arial" font-size="12" text-anchor="middle">H⁺</text>
+  
+  <!-- Cl- remaining -->
+  <circle class="cl-ion" cx="680" cy="240" r="18" />
+  <text class="title" x="680" y="245" font-family="Arial" font-size="14" text-anchor="middle">Cl⁻</text>
+  
+  <!-- Water becoming hydronium -->
+  <circle class="h3o-ion" cx="680" cy="200" r="18" />
+  <text class="title" x="680" y="205" font-family="Arial" font-size="14" text-anchor="middle">H₃O⁺</text>
+  
+  <!-- Right side explanation -->
+  <text class="explanation" x="600" y="300" font-family="Arial" font-size="14" text-anchor="middle" font-style="italic">Water accepts a proton (H⁺) from hydrogen chloride,</text>
+  <text class="explanation" x="600" y="320" font-family="Arial" font-size="14" text-anchor="middle" font-style="italic">forming hydronium ion (H₃O⁺) and chloride ion (Cl⁻)</text>
+  <text class="acid-base-label" x="600" y="350" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">Acting as a Brønsted-Lowry base</text>
+</svg>
