@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300">
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #333333;
+      --arrow-color: #666666;
+      --acid-color: #ff5252;
+      --base-color: #2196f3;
+      --hydrogen-color: #757575;
+      --bond-color: #424242;
+      --electron-color: rgba(33, 150, 243, 0.5);
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #121212;
+        --text-color: #ffffff;
+        --arrow-color: #aaaaaa;
+        --acid-color: #ff7373;
+        --base-color: #64b5f6;
+        --hydrogen-color: #bbbbbb;
+        --bond-color: #dddddd;
+        --electron-color: rgba(33, 150, 243, 0.7);
+      }
+    }
+    
+    text {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      fill: var(--text-color);
+      font-size: 14px;
+    }
+    
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+      text-anchor: middle;
+    }
+    
+    .atom {
+      stroke: none;
+    }
+    
+    .bond {
+      stroke: var(--bond-color);
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+    
+    .arrow {
+      stroke: var(--arrow-color);
+      stroke-width: 2;
+      fill: none;
+    }
+    
+    .arrow-head {
+      fill: var(--arrow-color);
+    }
+    
+    .electron-cloud {
+      fill: var(--electron-color);
+      stroke: none;
+      opacity: 0.7;
+    }
+    
+    .atom-label {
+      font-weight: bold;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+    
+    .molecule-label {
+      text-anchor: middle;
+      font-size: 12px;
+    }
+  </style>
+
+  <!-- Initial State (Left Side) - HA -->
+  <g transform="translate(120, 150)">
+    <!-- Acid molecule -->
+    <circle cx="0" cy="0" r="20" class="atom" fill="var(--acid-color)" />
+    <text x="0" y="0" class="atom-label">A</text>
+    
+    <line x1="20" y1="0" x2="45" y2="0" class="bond" />
+    
+    <circle cx="65" cy="0" r="12" class="atom" fill="var(--hydrogen-color)" />
+    <text x="65" y="0" class="atom-label">H</text>
+    
+    <!-- Electron cloud -->
+    <ellipse cx="0" cy="0" rx="25" ry="22" class="electron-cloud" />
+    
+    <text x="30" y="35" class="molecule-label">HA</text>
+  </g>
+  
+  <!-- Plus Sign -->
+  <text x="180" y="150" font-size="20" text-anchor="middle" fill="var(--text-color)">+</text>
+  
+  <!-- Water Molecule -->
+  <g transform="translate(230, 150)">
+    <circle cx="0" cy="0" r="16" class="atom" fill="var(--base-color)" />
+    <text x="0" y="0" class="atom-label">O</text>
+    
+    <line x1="-10" y1="-10" x2="-25" y2="-20" class="bond" />
+    <circle cx="-30" cy="-25" r="10" class="atom" fill="var(--hydrogen-color)" />
+    <text x="-30" y="-25" class="atom-label">H</text>
+    
+    <line x1="10" y1="-10" x2="25" y2="-20" class="bond" />
+    <circle cx="30" cy="-25" r="10" class="atom" fill="var(--hydrogen-color)" />
+    <text x="30" y="-25" class="atom-label">H</text>
+    
+    <!-- Electron cloud -->
+    <ellipse cx="0" cy="0" rx="20" ry="18" class="electron-cloud" />
+    
+    <text x="0" y="35" class="molecule-label">H₂O</text>
+  </g>
+  
+  <!-- Equilibrium Arrows -->
+  <g transform="translate(300, 150)">
+    <path d="M0,0 L40,-15 L40,15 Z" class="arrow-head" fill="none" stroke="var(--arrow-color)" />
+    <line x1="0" y1="-10" x2="40" y2="-10" class="arrow" />
+    <line x1="0" y1="10" x2="40" y2="10" class="arrow" />
+  </g>
+  
+  <!-- Final State (Right Side) - A- -->
+  <g transform="translate(410, 150)">
+    <circle cx="0" cy="0" r="20" class="atom" fill="var(--acid-color)" />
+    <text x="0" y="0" class="atom-label">A</text>
+    <text x="10" y="-5" font-size="12" fill="var(--text-color)">-</text>
+    
+    <!-- Enhanced electron cloud -->
+    <ellipse cx="0" cy="0" rx="30" ry="25" class="electron-cloud" />
+    
+    <text x="0" y="35" class="molecule-label">A⁻</text>
+  </g>
+  
+  <!-- Plus Sign -->
+  <text x="470" y="150" font-size="20" text-anchor="middle" fill="var(--text-color)">+</text>
+  
+  <!-- Hydronium Ion -->
+  <g transform="translate(520, 150)">
+    <circle cx="0" cy="0" r="16" class="atom" fill="var(--base-color)" />
+    <text x="0" y="0" class="atom-label">O</text>
+    
+    <line x1="-10" y1="-10" x2="-25" y2="-20" class="bond" />
+    <circle cx="-30" cy="-25" r="10" class="atom" fill="var(--hydrogen-color)" />
+    <text x="-30" y="-25" class="atom-label">H</text>
+    
+    <line x1="10" y1="-10" x2="25" y2="-20" class="bond" />
+    <circle cx="30" cy="-25" r="10" class="atom" fill="var(--hydrogen-color)" />
+    <text x="30" y="-25" class="atom-label">H</text>
+    
+    <line x1="0" y1="16" x2="0" y2="30" class="bond" />
+    <circle cx="0" cy="40" r="10" class="atom" fill="var(--hydrogen-color)" />
+    <text x="0" y="40" class="atom-label">H</text>
+    
+    <text x="0" y="65" class="molecule-label">H₃O⁺</text>
+    <text x="10" y="5" font-size="12" fill="var(--text-color)">+</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="300" y="250" class="title">Acid-Base Equilibrium in Aqueous Solution</text>
+  <text x="300" y="270" font-size="12" text-anchor="middle" fill="var(--text-color)">HA + H₂O ⇌ A⁻ + H₃O⁺</text>
+</svg>
