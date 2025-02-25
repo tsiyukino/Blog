@@ -1,0 +1,277 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" style="width: 100%; max-width: 1000px;">
+  <style>
+    :root {
+      --text-color: #24292e;
+      --bg-color: #ffffff;
+      --line-color: #586069;
+      --strong-color: #22863a;
+      --weak-color: #d73a49;
+      --tick-color: #6a737d;
+      --grid-color: #eaecef;
+      --section-color: #f6f8fa;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text-color: #c9d1d9;
+        --bg-color: #0d1117;
+        --line-color: #8b949e;
+        --strong-color: #7ee787;
+        --weak-color: #ff7b72;
+        --tick-color: #6e7681;
+        --grid-color: #21262d;
+        --section-color: #161b22;
+      }
+    }
+    
+    .background {
+      fill: var(--bg-color);
+    }
+    
+    .axis {
+      stroke: var(--line-color);
+      stroke-width: 2;
+    }
+    
+    .grid {
+      stroke: var(--grid-color);
+      stroke-width: 1;
+      stroke-dasharray: 4 4;
+    }
+    
+    .tick {
+      stroke: var(--tick-color);
+      stroke-width: 1;
+    }
+    
+    .label {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      fill: var(--text-color);
+    }
+    
+    .category-label {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      fill: var(--text-color);
+    }
+    
+    .title {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      fill: var(--text-color);
+    }
+    
+    .subtitle {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      fill: var(--text-color);
+    }
+    
+    .compound {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 11px;
+      fill: var(--text-color);
+    }
+    
+    .compound-name {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      fill: var(--text-color);
+    }
+    
+    .compound-value {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 11px;
+      fill: var(--text-color);
+    }
+    
+    .compound-dot {
+      stroke: var(--line-color);
+      stroke-width: 1;
+    }
+    
+    .gradient-bar {
+      stroke-width: 8;
+    }
+    
+    .section {
+      fill: var(--section-color);
+      opacity: 0.5;
+    }
+  </style>
+
+  <!-- Background rectangle -->
+  <rect class="background" x="0" y="0" width="1000" height="600" rx="4" />
+  
+  <!-- Title and subtitle -->
+  <text class="title" x="500" y="40" text-anchor="middle">pKb Scale of Common Bases</text>
+  <text class="subtitle" x="500" y="65" text-anchor="middle">From Very Strong (pKb -10) to Extremely Weak (pKb 50)</text>
+  
+  <!-- Main section backgrounds -->
+  <rect class="section" x="50" y="100" width="180" height="430" rx="4" />
+  <rect class="section" x="230" y="100" width="180" height="430" rx="4" />
+  <rect class="section" x="410" y="100" width="180" height="430" rx="4" />
+  <rect class="section" x="590" y="100" width="180" height="430" rx="4" />
+  <rect class="section" x="770" y="100" width="180" height="430" rx="4" />
+  
+  <!-- Section labels -->
+  <text class="category-label" x="140" y="120" text-anchor="middle">Very Strong Bases</text>
+  <text class="category-label" x="140" y="140" text-anchor="middle">pKb &lt; 0</text>
+  
+  <text class="category-label" x="320" y="120" text-anchor="middle">Strong Bases</text>
+  <text class="category-label" x="320" y="140" text-anchor="middle">pKb 0-4</text>
+  
+  <text class="category-label" x="500" y="120" text-anchor="middle">Moderate Bases</text>
+  <text class="category-label" x="500" y="140" text-anchor="middle">pKb 5-14</text>
+  
+  <text class="category-label" x="680" y="120" text-anchor="middle">Weak Bases</text>
+  <text class="category-label" x="680" y="140" text-anchor="middle">pKb 15-25</text>
+  
+  <text class="category-label" x="860" y="120" text-anchor="middle">Very Weak Bases</text>
+  <text class="category-label" x="860" y="140" text-anchor="middle">pKb &gt; 25</text>
+  
+  <!-- Main axis line -->
+  <line class="axis" x1="50" y1="550" x2="950" y2="550" />
+  
+  <!-- Gradient bar representing base strength -->
+  <linearGradient id="pkb-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" style="stop-color:var(--strong-color);" />
+    <stop offset="40%" style="stop-color:var(--strong-color);stop-opacity:0.6" />
+    <stop offset="60%" style="stop-color:var(--weak-color);stop-opacity:0.6" />
+    <stop offset="100%" style="stop-color:var(--weak-color);" />
+  </linearGradient>
+  <line class="gradient-bar" x1="50" y1="550" x2="950" y2="550" stroke="url(#pkb-gradient)" />
+  
+  <!-- pKb value labels -->
+  <line class="tick" x1="50" y1="550" x2="50" y2="560" />
+  <text class="label" x="50" y="575" text-anchor="middle">-10</text>
+  
+  <line class="tick" x1="140" y1="550" x2="140" y2="560" />
+  <text class="label" x="140" y="575" text-anchor="middle">-5</text>
+  
+  <line class="tick" x1="230" y1="550" x2="230" y2="560" />
+  <text class="label" x="230" y="575" text-anchor="middle">0</text>
+  
+  <line class="tick" x1="320" y1="550" x2="320" y2="560" />
+  <text class="label" x="320" y="575" text-anchor="middle">5</text>
+  
+  <line class="tick" x1="410" y1="550" x2="410" y2="560" />
+  <text class="label" x="410" y="575" text-anchor="middle">10</text>
+  
+  <line class="tick" x1="500" y1="550" x2="500" y2="560" />
+  <text class="label" x="500" y="575" text-anchor="middle">15</text>
+  
+  <line class="tick" x1="590" y1="550" x2="590" y2="560" />
+  <text class="label" x="590" y="575" text-anchor="middle">20</text>
+  
+  <line class="tick" x1="680" y1="550" x2="680" y2="560" />
+  <text class="label" x="680" y="575" text-anchor="middle">25</text>
+  
+  <line class="tick" x1="770" y1="550" x2="770" y2="560" />
+  <text class="label" x="770" y="575" text-anchor="middle">30</text>
+  
+  <line class="tick" x1="860" y1="550" x2="860" y2="560" />
+  <text class="label" x="860" y="575" text-anchor="middle">40</text>
+  
+  <line class="tick" x1="950" y1="550" x2="950" y2="560" />
+  <text class="label" x="950" y="575" text-anchor="middle">50</text>
+  
+  <!-- Gridlines -->
+  <line class="grid" x1="230" y1="100" x2="230" y2="550" />
+  <line class="grid" x1="410" y1="100" x2="410" y2="550" />
+  <line class="grid" x1="590" y1="100" x2="590" y2="550" />
+  <line class="grid" x1="770" y1="100" x2="770" y2="550" />
+  
+  <!-- VERY STRONG BASES -->
+  <circle class="compound-dot" cx="70" cy="250" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="70" y="235" text-anchor="middle">NaOH</text>
+  <text class="compound-value" x="70" y="265" text-anchor="middle">-10</text>
+  
+  <circle class="compound-dot" cx="100" cy="290" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="100" y="275" text-anchor="middle">KOH</text>
+  <text class="compound-value" x="100" y="305" text-anchor="middle">-8</text>
+  
+  <circle class="compound-dot" cx="130" cy="260" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="130" y="245" text-anchor="middle">LiOH</text>
+  <text class="compound-value" x="130" y="275" text-anchor="middle">-7</text>
+  
+  <circle class="compound-dot" cx="170" cy="310" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="170" y="295" text-anchor="middle">Ba(OH)₂</text>
+  <text class="compound-value" x="170" y="325" text-anchor="middle">-3</text>
+  
+  <!-- STRONG BASES -->
+  <circle class="compound-dot" cx="250" cy="290" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="250" y="275" text-anchor="middle">NH₂⁻</text>
+  <text class="compound-value" x="250" y="305" text-anchor="middle">0</text>
+  
+  <circle class="compound-dot" cx="280" cy="260" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="280" y="245" text-anchor="middle">CH₃NH₂⁻</text>
+  <text class="compound-value" x="280" y="275" text-anchor="middle">1.9</text>
+  
+  <circle class="compound-dot" cx="310" cy="330" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="310" y="315" text-anchor="middle">(CH₃)₃N</text>
+  <text class="compound-value" x="310" y="345" text-anchor="middle">4.2</text>
+  
+  <!-- MODERATE BASES -->
+  <circle class="compound-dot" cx="430" cy="260" r="5" fill="var(--line-color)" />
+  <text class="compound-name" x="430" y="245" text-anchor="middle">NH₃</text>
+  <text class="compound-value" x="430" y="275" text-anchor="middle">9.2</text>
+  
+  <circle class="compound-dot" cx="460" cy="310" r="5" fill="var(--line-color)" />
+  <text class="compound-name" x="460" y="295" text-anchor="middle">Pyridine</text>
+  <text class="compound-value" x="460" y="325" text-anchor="middle">8.8</text>
+  
+  <circle class="compound-dot" cx="490" cy="370" r="5" fill="var(--line-color)" />
+  <text class="compound-name" x="490" y="355" text-anchor="middle">CH₃CN</text>
+  <text class="compound-value" x="490" y="385" text-anchor="middle">12</text>
+  
+  <circle class="compound-dot" cx="510" cy="430" r="5" fill="var(--line-color)" />
+  <text class="compound-name" x="510" y="415" text-anchor="middle">Aniline</text>
+  <text class="compound-value" x="510" y="445" text-anchor="middle">9.4</text>
+  
+  <!-- WEAK BASES -->
+  <circle class="compound-dot" cx="610" cy="290" r="5" fill="var(--weak-color)" />
+  <text class="compound-name" x="610" y="275" text-anchor="middle">Caffeine</text>
+  <text class="compound-value" x="610" y="305" text-anchor="middle">16</text>
+  
+  <circle class="compound-dot" cx="640" cy="350" r="5" fill="var(--weak-color)" />
+  <text class="compound-name" x="640" y="335" text-anchor="middle">Quinine</text>
+  <text class="compound-value" x="640" y="365" text-anchor="middle">18</text>
+  
+  <!-- VERY WEAK BASES -->
+  <circle class="compound-dot" cx="830" cy="260" r="5" fill="var(--weak-color)" />
+  <text class="compound-name" x="830" y="245" text-anchor="middle">Urea</text>
+  <text class="compound-value" x="830" y="275" text-anchor="middle">38</text>
+  
+  <circle class="compound-dot" cx="780" cy="310" r="5" fill="var(--weak-color)" />
+  <text class="compound-name" x="780" y="295" text-anchor="middle">Acetamide</text>
+  <text class="compound-value" x="780" y="325" text-anchor="middle">27</text>
+  
+  <circle class="compound-dot" cx="950" cy="290" r="5" fill="var(--weak-color)" />
+  <text class="compound-name" x="950" y="275" text-anchor="middle">Benzamide</text>
+  <text class="compound-value" x="950" y="305" text-anchor="middle">50</text>
+  
+  <!-- Functional Groups Summary -->
+  <text class="label" x="110" y="520" text-anchor="middle">Metal</text>
+  <text class="label" x="110" y="535" text-anchor="middle">Hydroxides</text>
+  
+  <text class="label" x="320" y="520" text-anchor="middle">Alkyl</text>
+  <text class="label" x="320" y="535" text-anchor="middle">Amines</text>
+  
+  <text class="label" x="500" y="520" text-anchor="middle">Ammonia,</text>
+  <text class="label" x="500" y="535" text-anchor="middle">Nitrogen Bases</text>
+  
+  <text class="label" x="680" y="520" text-anchor="middle">Alkaloids,</text>
+  <text class="label" x="680" y="535" text-anchor="middle">Complex Bases</text>
+  
+  <text class="label" x="860" y="520" text-anchor="middle">Amides,</text>
+  <text class="label" x="860" y="535" text-anchor="middle">Weak N Bases</text>
+  
+  <!-- Footer -->
+  <text class="label" x="200" y="580" text-anchor="start">← Stronger Bases</text>
+  <text class="label" x="800" y="580" text-anchor="end">Weaker Bases →</text>
+</svg>

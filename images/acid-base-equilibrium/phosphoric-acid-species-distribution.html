@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Phosphoric Acid Species Distribution</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --grid-color: #e0e0e0;
+            --h3po4-color: #1E90FF;
+            --h2po4-color: #32CD32;
+            --hpo4-color: #FF4500;
+            --po4-color: #9400D3;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #121212;
+                --text-color: #ffffff;
+                --grid-color: #404040;
+                --h3po4-color: #4169E1;
+                --h2po4-color: #3CB371;
+                --hpo4-color: #FF6347;
+                --po4-color: #8A2BE2;
+            }
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #chart {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .line {
+            fill: none;
+            stroke-width: 3px;
+        }
+
+        .axis {
+            stroke: var(--text-color);
+        }
+
+        .axis text {
+            fill: var(--text-color);
+        }
+
+        .grid line {
+            stroke: var(--grid-color);
+            stroke-opacity: 0.7;
+            shape-rendering: crispEdges;
+        }
+
+        .grid path {
+            stroke-width: 0;
+        }
+
+        .legend {
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chart"></div>
+    <script>
+        // Phosphoric acid species distribution data
+        const data = [
+            {pH: 0.00, H3PO4: 99.30, H2PO4: 0.70, HPO4: 0.00, PO4: 0.00},
+            {pH: 1.00, H3PO4: 93.40, H2PO4: 6.60, HPO4: 0.00, PO4: 0.00},
+            {pH: 2.00, H3PO4: 58.50, H2PO4: 41.40, HPO4: 0.00, PO4: 0.00},
+            {pH: 3.00, H3PO4: 12.40, H2PO4: 87.60, HPO4: 0.00, PO4: 0.00},
+            {pH: 4.00, H3PO4: 1.40, H2PO4: 98.60, HPO4: 0.00, PO4: 0.00},
+            {pH: 5.00, H3PO4: 0.00, H2PO4: 99.37, HPO4: 0.00, PO4: 0.00},
+            {pH: 6.00, H3PO4: 0.00, H2PO4: 94.04, HPO4: 5.94, PO4: 0.00},
+            {pH: 7.00, H3PO4: 0.00, H2PO4: 61.26, HPO4: 38.73, PO4: 0.00},
+            {pH: 8.00, H3PO4: 0.00, H2PO4: 13.66, HPO4: 86.34, PO4: 0.00},
+            {pH: 9.00, H3PO4: 0.00, H2PO4: 1.58, HPO4: 98.42, PO4: 0.00},
+            {pH: 10.00, H3PO4: 0.00, H2PO4: 0.16, HPO4: 99.84, PO4: 0.00},
+            {pH: 11.00, H3PO4: 0.00, H2PO4: 0.00, HPO4: 95.72, PO4: 4.28},
+            {pH: 12.00, H3PO4: 0.00, H2PO4: 0.00, HPO4: 69.10, PO4: 30.90},
+            {pH: 12.35, H3PO4: 0.00, H2PO4: 0.00, HPO4: 50.00, PO4: 50.00},
+            {pH: 13.00, H3PO4: 0.00, H2PO4: 0.00, HPO4: 1.83, PO4: 98.17},
+            {pH: 14.00, H3PO4: 0.00, H2PO4: 0.00, HPO4: 0.02, PO4: 99.98}
+        ];
+
+        // Set up SVG dimensions
+        const margin = {top: 50, right: 50, bottom: 50, left: 50};
+        const width = 800 - margin.left - margin.right;
+        const height = 500 - margin.top - margin.bottom;
+
+        // Create SVG
+        const svg = d3.select("#chart")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        // Scales
+        const x = d3.scaleLinear()
+            .domain([0, 14])
+            .range([0, width]);
+
+        const y = d3.scaleLinear()
+            .domain([0, 100])
+            .range([height, 0]);
+
+        // Grid lines
+        const xGrid = d3.axisBottom(x)
+            .tickSize(-height)
+            .tickFormat("");
+
+        const yGrid = d3.axisLeft(y)
+            .tickSize(-width)
+            .tickFormat("");
+
+        svg.append("g")
+            .attr("class", "grid")
+            .attr("transform", `translate(0,${height})`)
+            .call(xGrid);
+
+        svg.append("g")
+            .attr("class", "grid")
+            .call(yGrid);
+
+        // Lines for each species
+        const species = ['H3PO4', 'H2PO4', 'HPO4', 'PO4'];
+        const colors = {
+            'H3PO4': 'var(--h3po4-color)', 
+            'H2PO4': 'var(--h2po4-color)', 
+            'HPO4': 'var(--hpo4-color)', 
+            'PO4': 'var(--po4-color)'
+        };
+
+        species.forEach(spec => {
+            // Create a function that ensures the line passes through exact data points
+            const line = d3.line()
+                .x(d => x(d.pH))
+                .y(d => y(d[spec]))
+                .curve(d3.curveMonotoneX); // Monotone interpolation preserves data point values
+
+            svg.append("path")
+                .datum(data)
+                .attr("class", "line")
+                .attr("d", line)
+                .style("stroke", colors[spec])
+                .style("stroke-width", "2.5px")
+                .style("fill", "none");
+
+            // Add data points to clearly show original data
+            svg.selectAll(`.${spec}-points`)
+                .data(data.filter(d => d[spec] > 0))
+                .enter()
+                .append("circle")
+                .attr("cx", d => x(d.pH))
+                .attr("cy", d => y(d[spec]))
+                .attr("r", 3)
+                .style("fill", colors[spec])
+                .style("opacity", 0.7);
+        });
+
+        // Axes
+        svg.append("g")
+            .attr("transform", `translate(0,${height})`)
+            .call(d3.axisBottom(x))
+            .attr("class", "axis");
+
+        svg.append("g")
+            .call(d3.axisLeft(y))
+            .attr("class", "axis");
+
+        // Axis labels
+        svg.append("text")
+            .attr("text-anchor", "middle")
+            .attr("x", width/2)
+            .attr("y", height + 40)
+            .text("pH");
+
+        svg.append("text")
+            .attr("text-anchor", "middle")
+            .attr("transform", "rotate(-90)")
+            .attr("y", -40)
+            .attr("x", -height/2)
+            .text("Species Concentration (%)");
+
+        // Title
+        svg.append("text")
+            .attr("x", width/2)
+            .attr("y", -30)
+            .attr("text-anchor", "middle")
+            .style("font-size", "16px")
+            .style("font-weight", "bold")
+            .text("Phosphoric Acid Species Distribution");
+
+        // Legend
+        const legend = svg.append("g")
+            .attr("class", "legend")
+            .attr("transform", `translate(${width - 100},20)`);
+
+        species.forEach((spec, i) => {
+            legend.append("rect")
+                .attr("x", 0)
+                .attr("y", i * 20)
+                .attr("width", 10)
+                .attr("height", 10)
+                .style("fill", colors[spec]);
+
+            legend.append("text")
+                .attr("x", 15)
+                .attr("y", i * 20 + 10)
+                .text(spec)
+                .style("fill", "var(--text-color)");
+        });
+
+        // pKa vertical lines
+        const pKaValues = [2.12, 7.21, 12.32];
+        pKaValues.forEach(pKa => {
+            svg.append("line")
+                .attr("x1", x(pKa))
+                .attr("y1", 0)
+                .attr("x2", x(pKa))
+                .attr("y2", height)
+                .style("stroke", "var(--text-color)")
+                .style("stroke-dasharray", "5,5")
+                .style("opacity", 0.5);
+
+            svg.append("text")
+                .attr("x", x(pKa))
+                .attr("y", -15)
+                .attr("text-anchor", "middle")
+                .style("font-size", "10px")
+                .style("fill", "var(--text-color)")
+                .style("font-weight", "bold")
+                .text(`pKa ${pKa}`);
+        });
+    </script>
+</body>
+</html>

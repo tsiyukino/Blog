@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Base-Water Reaction Visualization</title>
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #24292e;
+      --ui-bg: rgba(246, 248, 250, 0.8);
+      --ui-text: #24292e;
+      --orbital-low: #a5d8ff;
+      --orbital-med: #2188ff;
+      --orbital-high: #0366d6;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #0d1117;
+        --text-color: #c9d1d9;
+        --ui-bg: rgba(22, 27, 34, 0.8);
+        --ui-text: #c9d1d9;
+        --orbital-low: rgba(33, 136, 255, 0.3);
+        --orbital-med: rgba(33, 136, 255, 0.5);
+        --orbital-high: rgba(33, 136, 255, 0.7);
+      }
+    }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.5s ease, color 0.5s ease;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+    
+    .container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+    
+    #canvas {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .controls {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      background-color: var(--ui-bg);
+      color: var(--ui-text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+    
+    button:hover {
+      opacity: 0.9;
+    }
+    
+    .equation {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 20px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      z-index: 100;
+      transition: all 0.3s ease;
+      text-align: center;
+      background-color: var(--ui-bg);
+      color: var(--ui-text);
+    }
+    
+    .legend {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      padding: 10px;
+      border-radius: 6px;
+      z-index: 100;
+      transition: all 0.3s ease;
+      background-color: var(--ui-bg);
+      color: var(--ui-text);
+    }
+    
+    .legend h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+    
+    .color-box {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="canvas"></div>
+    
+    <div class="equation">
+      B + H<sub>2</sub>O ⇌ BH<sup>+</sup> + OH<sup>-</sup>
+    </div>
+    
+    <div class="controls">
+      <button class="reaction-state" onclick="toggleReactionState()">Initial State</button>
+      <div class="animation-progress" style="height: 4px; background-color: #e0e0e0; width: 100%; border-radius: 2px; overflow: hidden; margin-top: 5px;">
+        <div id="progress-bar" style="height: 100%; width: 0%; background-color: #2188ff; transition: width 0.1s;"></div>
+      </div>
+    </div>
+    
+    <div class="legend">
+      <h3>Visualization Legend</h3>
+      <div class="legend-item">
+        <div class="color-box" style="background-color: #8250df;"></div>
+        <span>Base (B)</span>
+      </div>
+      <div class="legend-item">
+        <div class="color-box" style="background-color: #f5534b;"></div>
+        <span>Oxygen</span>
+      </div>
+      <div class="legend-item">
+        <div class="color-box" style="background-color: #58a6ff;"></div>
+        <span>Hydrogen</span>
+      </div>
+      <div class="legend-item">
+        <div class="color-box" style="background-color: var(--orbital-high);"></div>
+        <span>Electron Density (High)</span>
+      </div>
+      <div class="legend-item">
+        <div class="color-box" style="background-color: var(--orbital-med);"></div>
+        <span>Electron Density (Medium)</span>
+      </div>
+      <div class="legend-item">
+        <div class="color-box" style="background-color: var(--orbital-low);"></div>
+        <span>Electron Density (Low)</span>
+      </div>
+      <div class="legend-item">
+        <div class="color-box" style="background-color: #ffa657;"></div>
+        <span>Covalent Bond</span>
+      </div>
+      <div class="legend-item">
+        <div class="color-box" style="background-color: #ffdf5d;"></div>
+        <span>Transition Bond</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // Scene setup variables
+    let scene, camera, renderer, molecular;
+    let reactionState = 0; // 0: Initial, 1: Transition, 2: Final
+    let targetState = 0; // Target state for animation
+    let isAnimating = false;
+    let animationProgress = 0; // Animation progress from 0 to 1
+    
+    // Store references to bonds
+    let bonds = [];
+    
+    // Store references to atoms
+    let atoms = {
+      base: {
+        core: null
+      },
+      water: {
+        oxygen: null,
+        hydrogen1: null,
+        hydrogen2: null
+      }
+    };
+    
+    function init() {
+      // Create scene
+      scene = new THREE.Scene();
+      
+      // Create camera
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 15;
+      
+      // Create renderer
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.getElementById('canvas').appendChild(renderer.domElement);
+      
+      // Use system color preference for initial render
+      updateThemeColors();
+      
+      // Add ambient light
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+      scene.add(ambientLight);
+      
+      // Add directional light
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+      directionalLight.position.set(1, 1, 1);
+      scene.add(directionalLight);
+      
+      // Create molecular geometry
+      createMolecularGeometry();
+      
+      // Add window resize event
+      window.addEventListener('resize', onWindowResize);
+      
+      // Add system color scheme change listener
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateThemeColors);
+      
+      // Start animation
+      animate();
+    }
+    
+    function updateThemeColors() {
+      const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const bgColor = isDarkMode ? 0x0d1117 : 0xffffff;
+      if (renderer) {
+        renderer.setClearColor(bgColor, 1);
+      }
+    }
+    
+    function createMolecularGeometry() {
+      // Group to hold all molecular elements
+      molecular = new THREE.Group();
+      scene.add(molecular);
+      
+      // Create base (B)
+      createBase();
+      
+      // Create water (H2O)
+      createWater();
+      
+      // Create electron orbitals
+      createElectronOrbitals();
+      
+      // Create bonds
+      createBonds();
+    }
+    
+    function createBase() {
+      // Base atom (B)
+      const baseGeometry = new THREE.SphereGeometry(1.2, 32, 32);
+      const baseMaterial = new THREE.MeshPhongMaterial({ color: 0x8250df });
+      const base = new THREE.Mesh(baseGeometry, baseMaterial);
+      base.position.set(-4, 0, 0);
+      molecular.add(base);
+      atoms.base.core = base;
+    }
+    
+    function createWater() {
+      // Water oxygen
+      const oxygenGeometry = new THREE.SphereGeometry(1.2, 32, 32);
+      const oxygenMaterial = new THREE.MeshPhongMaterial({ color: 0xf5534b });
+      const oxygen = new THREE.Mesh(oxygenGeometry, oxygenMaterial);
+      oxygen.position.set(2, 0, 0);
+      molecular.add(oxygen);
+      atoms.water.oxygen = oxygen;
+      
+      // Water hydrogen 1
+      const h1Geometry = new THREE.SphereGeometry(0.6, 32, 32);
+      const h1Material = new THREE.MeshPhongMaterial({ color: 0x58a6ff });
+      const h1 = new THREE.Mesh(h1Geometry, h1Material);
+      h1.position.set(3, 1, 0);
+      molecular.add(h1);
+      atoms.water.hydrogen1 = h1;
+      
+      // Water hydrogen 2
+      const h2Geometry = new THREE.SphereGeometry(0.6, 32, 32);
+      const h2Material = new THREE.MeshPhongMaterial({ color: 0x58a6ff });
+      const h2 = new THREE.Mesh(h2Geometry, h2Material);
+      h2.position.set(3, -1, 0);
+      molecular.add(h2);
+      atoms.water.hydrogen2 = h2;
+    }
+    
+    function createBonds() {
+      // Clear existing bonds
+      bonds.forEach(bond => molecular.remove(bond));
+      bonds = [];
+      
+      // 1. Water O-H bonds
+      const waterBond1 = createBond(atoms.water.oxygen.position, atoms.water.hydrogen1.position, 0xffa657, 0.15);
+      molecular.add(waterBond1);
+      bonds.push(waterBond1);
+      
+      const waterBond2 = createBond(atoms.water.oxygen.position, atoms.water.hydrogen2.position, 0xffa657, 0.15);
+      molecular.add(waterBond2);
+      bonds.push(waterBond2);
+      
+      // 2. Transition bond between base and hydrogen (initially invisible)
+      const transitionBond = createBond(atoms.base.core.position, atoms.water.hydrogen1.position, 0xffdf5d, 0.1);
+      transitionBond.material.transparent = true;
+      transitionBond.material.opacity = 0;
+      transitionBond.userData = { type: 'transition-bond' };
+      molecular.add(transitionBond);
+      bonds.push(transitionBond);
+    }
+    
+    function createBond(startPosition, endPosition, color, radius) {
+      // Calculate direction vector from start to end
+      const direction = new THREE.Vector3().subVectors(endPosition, startPosition);
+      const distance = direction.length();
+      
+      // Create cylinder geometry - make slightly shorter than full distance
+      // This ensures bonds start/end at centers of atoms visually
+      const bondLength = distance * 0.9; // Reduced length to keep bond within atoms
+      const geometry = new THREE.CylinderGeometry(radius, radius, bondLength, 16);
+      const material = new THREE.MeshPhongMaterial({ color: color });
+      const bond = new THREE.Mesh(geometry, material);
+      
+      // Calculate midpoint between atoms for position
+      const midpoint = new THREE.Vector3().addVectors(startPosition, endPosition).multiplyScalar(0.5);
+      bond.position.copy(midpoint);
+      
+      // Align cylinder with direction vector
+      bond.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction.clone().normalize());
+      
+      return bond;
+    }
+    
+    function updateBonds() {
+      // Update bond positions based on atoms
+      bonds.forEach((bond, index) => {
+        let startPos, endPos;
+        
+        if (index === 0) {
+          // Water O-H1 Bond
+          startPos = atoms.water.oxygen.position;
+          endPos = atoms.water.hydrogen1.position;
+          
+          // Adjust opacity based on reaction state for the transferring hydrogen bond
+          if (isAnimating) {
+            const opacities = [1, 0.5, 0.1];
+            const currentOpacity = opacities[reactionState];
+            const nextOpacity = opacities[targetState];
+            bond.material.opacity = currentOpacity + (nextOpacity - currentOpacity) * animationProgress;
+            bond.material.transparent = true;
+          } else {
+            bond.material.opacity = reactionState === 0 ? 1 : (reactionState === 1 ? 0.5 : 0.1);
+            bond.material.transparent = reactionState !== 0;
+          }
+        } 
+        else if (index === 1) {
+          // Water O-H2 Bond (always remains)
+          startPos = atoms.water.oxygen.position;
+          endPos = atoms.water.hydrogen2.position;
+        }
+        else if (index === 2) {
+          // Transition bond between base and H1
+          startPos = atoms.base.core.position;
+          endPos = atoms.water.hydrogen1.position;
+          
+          // Adjust opacity based on reaction state
+          if (isAnimating) {
+            const opacities = [0, 1, 1];
+            const currentOpacity = opacities[reactionState];
+            const nextOpacity = opacities[targetState];
+            bond.material.opacity = currentOpacity + (nextOpacity - currentOpacity) * animationProgress;
+          } else {
+            bond.material.opacity = reactionState === 0 ? 0 : 1;
+          }
+        }
+        
+        if (startPos && endPos) {
+          // Calculate direction vector
+          const direction = new THREE.Vector3().subVectors(endPos, startPos);
+          const distance = direction.length();
+          
+          // Use shorter bond length (90% of actual distance)
+          const bondLength = distance * 0.9;
+          
+          // Update cylinder scale for length
+          bond.scale.set(1, bondLength / bond.geometry.parameters.height, 1);
+          
+          // Position at midpoint
+          const midpoint = new THREE.Vector3().addVectors(startPos, endPos).multiplyScalar(0.5);
+          bond.position.copy(midpoint);
+          
+          // Align cylinder with direction
+          bond.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction.normalize());
+        }
+      });
+    }
+    
+    function createElectronOrbitals() {
+      // Base (B) electron cloud
+      createElectronCloud(atoms.base.core.position, 2.0, 0x2188ff, 0.4, 'base');
+      
+      // Water (H2O) electron cloud
+      createElectronCloud(atoms.water.oxygen.position, 2.2, 0x2188ff, 0.5, 'water-oxygen');
+      
+      // Transition electron cloud (appears during proton transfer)
+      createElectronCloud(new THREE.Vector3(0, 0, 0), 1.5, 0xa5d8ff, 0, 'transition');
+    }
+    
+    function createElectronCloud(position, size, color, opacity, type) {
+      // Create standard spherical electron cloud
+      const material = new THREE.MeshPhongMaterial({
+        color: color,
+        transparent: true,
+        opacity: opacity,
+        shininess: 0,
+        depthWrite: false
+      });
+      
+      // Use high-resolution sphere for smooth appearance
+      const geometry = new THREE.SphereGeometry(size, 32, 32);
+      const cloud = new THREE.Mesh(geometry, material);
+      cloud.position.copy(position);
+      
+      cloud.userData = { 
+        type: 'electron-cloud',
+        cloudType: type,
+        originalPosition: position.clone(),
+        originalSize: size
+      };
+      
+      molecular.add(cloud);
+    }
+    
+    function updateElectronOrbitals() {
+      molecular.children.forEach(child => {
+        if (child.userData && child.userData.type === 'electron-cloud') {
+          // Update electron clouds based on reaction state
+          if (child.userData.cloudType === 'base') {
+            // Define properties for each state
+            const positions = [
+              atoms.base.core.position.clone(), // Initial state
+              atoms.base.core.position.clone(), // Transition state
+              atoms.base.core.position.clone()  // Final state
+            ];
+            
+            const sizes = [2.0, 1.8, 1.6];     // Decreasing as it loses electron density
+            const opacities = [0.4, 0.3, 0.3]; // Decreasing slightly
+            
+            updateOrbitalProperties(child, positions, sizes, opacities);
+          } 
+          else if (child.userData.cloudType === 'water-oxygen') {
+            // Define properties for each state
+            const positions = [
+              atoms.water.oxygen.position.clone(), // Initial state
+              atoms.water.oxygen.position.clone(), // Transition state
+              atoms.water.oxygen.position.clone()  // Final state
+            ];
+            
+            const sizes = [2.2, 2.0, 2.5];     // Increasing in final state (OH-)
+            const opacities = [0.5, 0.4, 0.7]; // Increasing in final state (OH-)
+            
+            updateOrbitalProperties(child, positions, sizes, opacities);
+          }
+          else if (child.userData.cloudType === 'transition') {
+            // Define properties for each state
+            const positions = [
+              new THREE.Vector3(0, 0, 0),                                     // Initial state
+              atoms.base.core.position.clone().add(
+                atoms.water.hydrogen1.position.clone()).multiplyScalar(0.5),  // Transition state
+              atoms.base.core.position.clone().add(
+                atoms.water.hydrogen1.position.clone()).multiplyScalar(0.5)   // Final state
+            ];
+            
+            const sizes = [0.5, 1.5, 0.8];
+            const opacities = [0, 0.6, 0.2];
+            
+            updateOrbitalProperties(child, positions, sizes, opacities);
+          }
+        }
+      });
+    }
+    
+    function updateOrbitalProperties(orbital, positions, sizes, opacities) {
+      if (isAnimating) {
+        // Interpolate position
+        const currentPos = positions[reactionState];
+        const nextPos = positions[targetState];
+        const x = currentPos.x + (nextPos.x - currentPos.x) * animationProgress;
+        const y = currentPos.y + (nextPos.y - currentPos.y) * animationProgress;
+        const z = currentPos.z + (nextPos.z - currentPos.z) * animationProgress;
+        orbital.position.set(x, y, z);
+        
+        // Interpolate size
+        const currentSize = sizes[reactionState];
+        const nextSize = sizes[targetState];
+        const size = currentSize + (nextSize - currentSize) * animationProgress;
+        
+        orbital.scale.set(
+          size,
+          size,
+          size
+        );
+        
+        // Interpolate opacity
+        const currentOpacity = opacities[reactionState];
+        const nextOpacity = opacities[targetState];
+        const opacity = currentOpacity + (nextOpacity - currentOpacity) * animationProgress;
+        orbital.material.opacity = opacity;
+      } else {
+        // Set exact values for current state
+        orbital.position.copy(positions[reactionState]);
+        orbital.scale.set(
+          sizes[reactionState],
+          sizes[reactionState],
+          sizes[reactionState]
+        );
+        orbital.material.opacity = opacities[reactionState];
+      }
+    }
+    
+    function updateMoleculePositions() {
+      // Define atom positions for each state
+      
+      // Base positions
+      const basePositions = [
+        new THREE.Vector3(-4, 0, 0),  // Initial: B + H2O
+        new THREE.Vector3(-4, 0, 0),  // Transition
+        new THREE.Vector3(-4, 0, 0)   // Final: BH+ + OH-
+      ];
+      
+      // Water oxygen positions
+      const waterOxygenPositions = [
+        new THREE.Vector3(2, 0, 0),    // Initial: B + H2O
+        new THREE.Vector3(2, 0, 0),    // Transition
+        new THREE.Vector3(2, 0, 0)     // Final: BH+ + OH-
+      ];
+      
+      // Water hydrogen positions - H1 is the one that transfers to the base
+      const waterH1Positions = [
+        new THREE.Vector3(3, 1, 0),    // Initial: B + H2O
+        new THREE.Vector3(0, 0.5, 0),  // Transition
+        new THREE.Vector3(-2.5, 0, 0)  // Final: BH+ + OH-
+      ];
+      
+      // Water hydrogen positions - H2 stays with oxygen
+      const waterH2Positions = [
+        new THREE.Vector3(3, -1, 0),   // Initial: B + H2O
+        new THREE.Vector3(3, -1, 0),   // Transition
+        new THREE.Vector3(3, -1, 0)    // Final: BH+ + OH-
+      ];
+      
+      // Update atom positions based on animation state
+      if (isAnimating) {
+        // Interpolate base position
+        interpolatePosition(atoms.base.core, basePositions);
+        
+        // Interpolate water oxygen position
+        interpolatePosition(atoms.water.oxygen, waterOxygenPositions);
+        
+        // Interpolate water hydrogen positions - H1 moves to the base
+        interpolatePosition(atoms.water.hydrogen1, waterH1Positions);
+        
+        // Interpolate water hydrogen positions - H2 stays with oxygen
+        interpolatePosition(atoms.water.hydrogen2, waterH2Positions);
+      } else {
+        // Set exact positions for current state
+        atoms.base.core.position.copy(basePositions[reactionState]);
+        atoms.water.oxygen.position.copy(waterOxygenPositions[reactionState]);
+        atoms.water.hydrogen1.position.copy(waterH1Positions[reactionState]);
+        atoms.water.hydrogen2.position.copy(waterH2Positions[reactionState]);
+      }
+    }
+    
+    function interpolatePosition(object, positions) {
+      const currentPos = positions[reactionState];
+      const nextPos = positions[targetState];
+      
+      const x = currentPos.x + (nextPos.x - currentPos.x) * animationProgress;
+      const y = currentPos.y + (nextPos.y - currentPos.y) * animationProgress;
+      const z = currentPos.z + (nextPos.z - currentPos.z) * animationProgress;
+      
+      object.position.set(x, y, z);
+    }
+    
+    function animate() {
+      requestAnimationFrame(animate);
+      
+      // Rotate the entire molecular view slowly
+      molecular.rotation.y += 0.005;
+      
+      // Update animation progress
+      if (isAnimating) {
+        animationProgress += 0.015; // Speed of animation
+        if (animationProgress >= 1) {
+          animationProgress = 0;
+          isAnimating = false;
+          reactionState = targetState;
+        }
+      }
+      
+      // Update molecule positions
+      updateMoleculePositions();
+      
+      // Update bond positions
+      updateBonds();
+      
+      // Update orbital visualizations
+      updateElectronOrbitals();
+      
+      // Update progress bar if animating
+      if (isAnimating) {
+        document.getElementById('progress-bar').style.width = `${animationProgress * 100}%`;
+      } else {
+        document.getElementById('progress-bar').style.width = '0%';
+      }
+      
+      renderer.render(scene, camera);
+    }
+    
+    function toggleReactionState() {
+      if (isAnimating) return; // Prevent multiple clicks during animation
+      
+      const nextState = (reactionState + 1) % 3;
+      targetState = nextState;
+      isAnimating = true;
+      animationProgress = 0;
+      
+      const stateButton = document.querySelector('.reaction-state');
+      if (nextState === 0) {
+        stateButton.textContent = "Animating to Initial State...";
+        setTimeout(() => {
+          if (reactionState === 0) stateButton.textContent = "Initial State";
+        }, 1000);
+      } else if (nextState === 1) {
+        stateButton.textContent = "Animating to Transition State...";
+        setTimeout(() => {
+          if (reactionState === 1) stateButton.textContent = "Transition State";
+        }, 1000);
+      } else {
+        stateButton.textContent = "Animating to Final State...";
+        setTimeout(() => {
+          if (reactionState === 2) stateButton.textContent = "Final State";
+        }, 1000);
+      }
+    }
+    
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+    
+    // Initialize everything
+    init();
+  </script>
+</body>
+</html>

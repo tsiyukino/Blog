@@ -1,0 +1,341 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" style="width: 100%; max-width: 1000px;">
+  <style>
+    :root {
+      --text-color: #24292e;
+      --bg-color: #ffffff;
+      --line-color: #586069;
+      --strong-color: #d73a49;
+      --weak-color: #22863a;
+      --tick-color: #6a737d;
+      --grid-color: #eaecef;
+      --section-color: #f6f8fa;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text-color: #c9d1d9;
+        --bg-color: #0d1117;
+        --line-color: #8b949e;
+        --strong-color: #ff7b72;
+        --weak-color: #7ee787;
+        --tick-color: #6e7681;
+        --grid-color: #21262d;
+        --section-color: #161b22;
+      }
+    }
+    
+    .background {
+      fill: var(--bg-color);
+    }
+    
+    .axis {
+      stroke: var(--line-color);
+      stroke-width: 2;
+    }
+    
+    .grid {
+      stroke: var(--grid-color);
+      stroke-width: 1;
+      stroke-dasharray: 4 4;
+    }
+    
+    .tick {
+      stroke: var(--tick-color);
+      stroke-width: 1;
+    }
+    
+    .label {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      fill: var(--text-color);
+    }
+    
+    .category-label {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      fill: var(--text-color);
+    }
+    
+    .title {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      fill: var(--text-color);
+    }
+    
+    .subtitle {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      fill: var(--text-color);
+    }
+    
+    .compound {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 11px;
+      fill: var(--text-color);
+    }
+    
+    .compound-name {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      fill: var(--text-color);
+    }
+    
+    .compound-value {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 11px;
+      fill: var(--text-color);
+    }
+    
+    .compound-dot {
+      stroke: var(--line-color);
+      stroke-width: 1;
+    }
+    
+    .gradient-bar {
+      stroke-width: 8;
+    }
+    
+    .section {
+      fill: var(--section-color);
+      opacity: 0.5;
+    }
+  </style>
+
+  <!-- Background rectangle -->
+  <rect class="background" x="0" y="0" width="1000" height="600" rx="4" />
+  
+  <!-- Title and subtitle -->
+  <text class="title" x="500" y="40" text-anchor="middle">pKa Scale of Common Acids</text>
+  <text class="subtitle" x="500" y="65" text-anchor="middle">From Very Strong (pKa -10) to Extremely Weak (pKa 50)</text>
+  
+  <!-- Main section backgrounds -->
+  <rect class="section" x="50" y="100" width="180" height="430" rx="4" />
+  <rect class="section" x="230" y="100" width="180" height="430" rx="4" />
+  <rect class="section" x="410" y="100" width="180" height="430" rx="4" />
+  <rect class="section" x="590" y="100" width="180" height="430" rx="4" />
+  <rect class="section" x="770" y="100" width="180" height="430" rx="4" />
+  
+  <!-- Section labels -->
+  <text class="category-label" x="140" y="120" text-anchor="middle">Very Strong Acids</text>
+  <text class="category-label" x="140" y="140" text-anchor="middle">pKa &lt; 0</text>
+  
+  <text class="category-label" x="320" y="120" text-anchor="middle">Strong Acids</text>
+  <text class="category-label" x="320" y="140" text-anchor="middle">pKa 0-4</text>
+  
+  <text class="category-label" x="500" y="120" text-anchor="middle">Moderate Acids</text>
+  <text class="category-label" x="500" y="140" text-anchor="middle">pKa 5-14</text>
+  
+  <text class="category-label" x="680" y="120" text-anchor="middle">Weak Acids</text>
+  <text class="category-label" x="680" y="140" text-anchor="middle">pKa 15-25</text>
+  
+  <text class="category-label" x="860" y="120" text-anchor="middle">Very Weak Acids</text>
+  <text class="category-label" x="860" y="140" text-anchor="middle">pKa &gt; 25</text>
+  
+  <!-- Main axis line -->
+  <line class="axis" x1="50" y1="550" x2="950" y2="550" />
+  
+  <!-- Gradient bar representing acid strength -->
+  <linearGradient id="pka-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" style="stop-color:var(--strong-color);" />
+    <stop offset="40%" style="stop-color:var(--strong-color);stop-opacity:0.6" />
+    <stop offset="60%" style="stop-color:var(--weak-color);stop-opacity:0.6" />
+    <stop offset="100%" style="stop-color:var(--weak-color);" />
+  </linearGradient>
+  <line class="gradient-bar" x1="50" y1="550" x2="950" y2="550" stroke="url(#pka-gradient)" />
+  
+  <!-- pKa value labels -->
+  <line class="tick" x1="50" y1="550" x2="50" y2="560" />
+  <text class="label" x="50" y="575" text-anchor="middle">-10</text>
+  
+  <line class="tick" x1="140" y1="550" x2="140" y2="560" />
+  <text class="label" x="140" y="575" text-anchor="middle">-5</text>
+  
+  <line class="tick" x1="230" y1="550" x2="230" y2="560" />
+  <text class="label" x="230" y="575" text-anchor="middle">0</text>
+  
+  <line class="tick" x1="320" y1="550" x2="320" y2="560" />
+  <text class="label" x="320" y="575" text-anchor="middle">5</text>
+  
+  <line class="tick" x1="410" y1="550" x2="410" y2="560" />
+  <text class="label" x="410" y="575" text-anchor="middle">10</text>
+  
+  <line class="tick" x1="500" y1="550" x2="500" y2="560" />
+  <text class="label" x="500" y="575" text-anchor="middle">15</text>
+  
+  <line class="tick" x1="590" y1="550" x2="590" y2="560" />
+  <text class="label" x="590" y="575" text-anchor="middle">20</text>
+  
+  <line class="tick" x1="680" y1="550" x2="680" y2="560" />
+  <text class="label" x="680" y="575" text-anchor="middle">25</text>
+  
+  <line class="tick" x1="770" y1="550" x2="770" y2="560" />
+  <text class="label" x="770" y="575" text-anchor="middle">30</text>
+  
+  <line class="tick" x1="860" y1="550" x2="860" y2="560" />
+  <text class="label" x="860" y="575" text-anchor="middle">40</text>
+  
+  <line class="tick" x1="950" y1="550" x2="950" y2="560" />
+  <text class="label" x="950" y="575" text-anchor="middle">50</text>
+  
+  <!-- Gridlines -->
+  <line class="grid" x1="230" y1="100" x2="230" y2="550" />
+  <line class="grid" x1="410" y1="100" x2="410" y2="550" />
+  <line class="grid" x1="590" y1="100" x2="590" y2="550" />
+  <line class="grid" x1="770" y1="100" x2="770" y2="550" />
+  
+  <!-- VERY STRONG ACIDS -->
+  <circle class="compound-dot" cx="50" cy="180" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="50" y="165" text-anchor="middle">HI</text>
+  <text class="compound-value" x="50" y="195" text-anchor="middle">-10</text>
+  
+  <circle class="compound-dot" cx="85" cy="220" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="85" y="205" text-anchor="middle">HBr</text>
+  <text class="compound-value" x="85" y="235" text-anchor="middle">-9</text>
+  
+  <circle class="compound-dot" cx="120" cy="190" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="120" y="175" text-anchor="middle">HCl</text>
+  <text class="compound-value" x="120" y="205" text-anchor="middle">-7</text>
+  
+  <circle class="compound-dot" cx="170" cy="240" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="170" y="225" text-anchor="middle">H₂SO₄</text>
+  <text class="compound-value" x="170" y="255" text-anchor="middle">-3</text>
+  
+  <circle class="compound-dot" cx="210" cy="180" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="210" y="165" text-anchor="middle">HNO₃</text>
+  <text class="compound-value" x="210" y="195" text-anchor="middle">-1.3</text>
+  
+  <!-- STRONG ACIDS -->
+  <circle class="compound-dot" cx="230" cy="220" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="230" y="205" text-anchor="middle">H₃O⁺</text>
+  <text class="compound-value" x="230" y="235" text-anchor="middle">0</text>
+  
+  <circle class="compound-dot" cx="260" cy="190" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="260" y="175" text-anchor="middle">HSO₄⁻</text>
+  <text class="compound-value" x="260" y="205" text-anchor="middle">1.9</text>
+  
+  <circle class="compound-dot" cx="275" cy="260" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="275" y="245" text-anchor="middle">H₃PO₄</text>
+  <text class="compound-value" x="275" y="275" text-anchor="middle">2.1</text>
+  
+  <circle class="compound-dot" cx="285" cy="320" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="285" y="305" text-anchor="middle">H₂SO₃</text>
+  <text class="compound-value" x="285" y="335" text-anchor="middle">1.8</text>
+  
+  <circle class="compound-dot" cx="290" cy="380" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="290" y="365" text-anchor="middle">CH₃SO₃H</text>
+  <text class="compound-value" x="290" y="395" text-anchor="middle">1.6</text>
+  
+  <circle class="compound-dot" cx="310" cy="220" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="310" y="205" text-anchor="middle">HCOOH</text>
+  <text class="compound-value" x="310" y="235" text-anchor="middle">3.8</text>
+  
+  <circle class="compound-dot" cx="335" cy="260" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="335" y="245" text-anchor="middle">CH₃COOH</text>
+  <text class="compound-value" x="335" y="275" text-anchor="middle">4.8</text>
+  
+  <circle class="compound-dot" cx="340" cy="340" r="5" fill="var(--strong-color)" />
+  <text class="compound-name" x="340" y="325" text-anchor="middle">C₆H₅COOH</text>
+  <text class="compound-value" x="340" y="355" text-anchor="middle">4.2</text>
+  
+  <!-- MODERATE ACIDS -->
+  <circle class="compound-dot" cx="370" cy="190" r="5" fill="var(--line-color)" />
+  <text class="compound-name" x="370" y="175" text-anchor="middle">H₂PO₄⁻</text>
+  <text class="compound-value" x="370" y="205" text-anchor="middle">7.2</text>
+  
+  <circle class="compound-dot" cx="390" cy="240" r="5" fill="var(--line-color)" />
+  <text class="compound-name" x="390" y="225" text-anchor="middle">H₂CO₃</text>
+  <text class="compound-value" x="390" y="255" text-anchor="middle">6.4</text>
+  
+  <circle class="compound-dot" cx="400" cy="300" r="5" fill="var(--line-color)" />
+  <text class="compound-name" x="400" y="285" text-anchor="middle">H₂S</text>
+  <text class="compound-value" x="400" y="315" text-anchor="middle">7.0</text>
+  
+  <circle class="compound-dot" cx="430" cy="190" r="5" fill="var(--line-color)" />
+  <text class="compound-name" x="430" y="175" text-anchor="middle">NH₄⁺</text>
+  <text class="compound-value" x="430" y="205" text-anchor="middle">9.2</text>
+  
+  <circle class="compound-dot" cx="430" cy="240" r="5" fill="var(--line-color)" />
+  <text class="compound-name" x="430" y="225" text-anchor="middle">HCN</text>
+  <text class="compound-value" x="430" y="255" text-anchor="middle">9.2</text>
+  
+  <circle class="compound-dot" cx="440" cy="300" r="5" fill="var(--line-color)" />
+  <text class="compound-name" x="440" y="285" text-anchor="middle">C₆H₅OH</text>
+  <text class="compound-value" x="440" y="315" text-anchor="middle">10</text>
+  
+  <circle class="compound-dot" cx="460" cy="360" r="5" fill="var(--line-color)" />
+  <text class="compound-name" x="460" y="345" text-anchor="middle">HCO₃⁻</text>
+  <text class="compound-value" x="460" y="375" text-anchor="middle">10.3</text>
+  
+  <circle class="compound-dot" cx="480" cy="420" r="5" fill="var(--line-color)" />
+  <text class="compound-name" x="480" y="405" text-anchor="middle">HPO₄²⁻</text>
+  <text class="compound-value" x="480" y="435" text-anchor="middle">12.3</text>
+  
+  <circle class="compound-dot" cx="420" cy="480" r="5" fill="var(--line-color)" />
+  <text class="compound-name" x="420" y="465" text-anchor="middle">B(OH)₃</text>
+  <text class="compound-value" x="420" y="495" text-anchor="middle">9.2</text>
+  
+  <circle class="compound-dot" cx="500" cy="190" r="5" fill="var(--line-color)" />
+  <text class="compound-name" x="500" y="175" text-anchor="middle">H₂O</text>
+  <text class="compound-value" x="500" y="205" text-anchor="middle">14</text>
+  
+  <!-- WEAK ACIDS -->
+  <circle class="compound-dot" cx="560" cy="220" r="5" fill="var(--weak-color)" />
+  <text class="compound-name" x="560" y="205" text-anchor="middle">CH₃CH₂OH</text>
+  <text class="compound-value" x="560" y="235" text-anchor="middle">16</text>
+  
+  <circle class="compound-dot" cx="580" cy="280" r="5" fill="var(--weak-color)" />
+  <text class="compound-name" x="580" y="265" text-anchor="middle">(CH₃)₃COH</text>
+  <text class="compound-value" x="580" y="295" text-anchor="middle">18</text>
+  
+  <circle class="compound-dot" cx="450" cy="420" r="5" fill="var(--line-color)" />
+  <text class="compound-name" x="450" y="405" text-anchor="middle">CH₃SH</text>
+  <text class="compound-value" x="450" y="435" text-anchor="middle">10.5</text>
+  
+  <circle class="compound-dot" cx="690" cy="190" r="5" fill="var(--weak-color)" />
+  <text class="compound-name" x="690" y="175" text-anchor="middle">HC≡CH</text>
+  <text class="compound-value" x="690" y="205" text-anchor="middle">25</text>
+  
+  <!-- VERY WEAK ACIDS -->
+  <circle class="compound-dot" cx="830" cy="190" r="5" fill="var(--weak-color)" />
+  <text class="compound-name" x="830" y="175" text-anchor="middle">NH₃</text>
+  <text class="compound-value" x="830" y="205" text-anchor="middle">38</text>
+  
+  <circle class="compound-dot" cx="780" cy="240" r="5" fill="var(--weak-color)" />
+  <text class="compound-name" x="780" y="225" text-anchor="middle">PH₃</text>
+  <text class="compound-value" x="780" y="255" text-anchor="middle">27</text>
+  
+  <circle class="compound-dot" cx="810" cy="300" r="5" fill="var(--weak-color)" />
+  <text class="compound-name" x="810" y="285" text-anchor="middle">(C₆H₅)₃PH</text>
+  <text class="compound-value" x="810" y="315" text-anchor="middle">32</text>
+  
+  <circle class="compound-dot" cx="950" cy="220" r="5" fill="var(--weak-color)" />
+  <text class="compound-name" x="950" y="205" text-anchor="middle">CH₄</text>
+  <text class="compound-value" x="950" y="235" text-anchor="middle">50</text>
+  
+  <circle class="compound-dot" cx="950" cy="280" r="5" fill="var(--weak-color)" />
+  <text class="compound-name" x="950" y="265" text-anchor="middle">CH₃CH₃</text>
+  <text class="compound-value" x="950" y="295" text-anchor="middle">~50</text>
+  
+  <!-- Functional Groups Summary -->
+  <text class="label" x="90" y="520" text-anchor="middle">Hydrohalic</text>
+  <text class="label" x="90" y="535" text-anchor="middle">Acids</text>
+  
+  <text class="label" x="320" y="520" text-anchor="middle">Carboxylic</text>
+  <text class="label" x="320" y="535" text-anchor="middle">Acids</text>
+  
+  <text class="label" x="500" y="520" text-anchor="middle">Phenols, H₂S,</text>
+  <text class="label" x="500" y="535" text-anchor="middle">Ammonium, Water</text>
+  
+  <text class="label" x="680" y="520" text-anchor="middle">Alcohols,</text>
+  <text class="label" x="680" y="535" text-anchor="middle">Alkynes</text>
+  
+  <text class="label" x="860" y="520" text-anchor="middle">Alkanes,</text>
+  <text class="label" x="860" y="535" text-anchor="middle">Ammonia</text>
+  
+  <!-- Footer -->
+  <text class="label" x="200" y="580" text-anchor="start">← Stronger Acids</text>
+  <text class="label" x="800" y="580" text-anchor="end">Weaker Acids →</text>
+</svg>

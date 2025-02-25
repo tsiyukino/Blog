@@ -154,9 +154,9 @@
 
                   
                   <span class="file-info-divider"></span>
-                  Modified <relative-time datetime="Tue, 25 Feb 2025 01:02:30 &#43;0000"
+                  Modified <relative-time datetime="Tue, 25 Feb 2025 04:18:17 &#43;0000"
                     class="no-wrap">
-                    Tue, 25 Feb 2025 01:02:30 &#43;0000</relative-time>
+                    Tue, 25 Feb 2025 04:18:17 &#43;0000</relative-time>
                   
                 </div>
               </div>
@@ -186,7 +186,7 @@
                         </div>
                       </div>
                     </details-menu>
-                      1449 Words
+                      1369 Words
                     
 
                   </div>
@@ -212,7 +212,7 @@
                 <article class="markdown-body entry-content container-lg"><h1 id="acid-base-equilibrium">Acid-Base Equilibrium</h1>
 <h2 id="introduction">Introduction</h2>
 <p>Acid-base equilibria represent one of the most fundamental chemical processes in both natural and laboratory environments. While undergraduate courses introduce the basic concepts, a deeper understanding of the thermodynamic and kinetic aspects is essential for graduate-level research and applications.</p>
-<p><img src="https://tsiyukino.github.io/blog/images/acid-base-equilibrium.svg" alt="Conceptual illustration showing the dynamic equilibrium between an acid (HA) and its dissociated form (A- and H+) in aqueous solution, with arrows indicating the forward and reverse reactions"></p>
+<p><img src="https://tsiyukino.github.io/blog/images/acid-base-equilibrium/acid-base-equilibrium.svg" alt="acid-base-equilibrium"></p>
 <h2 id="thermodynamic-foundation-of-acid-base-equilibria">Thermodynamic Foundation of Acid-Base Equilibria</h2>
 <p>The equilibrium between acids, bases, and their conjugate species is governed by the principles of chemical thermodynamics. For a generic acid dissociation:</p>
 <p>$$\text{HA} + \text{H}_ {2}\text{O} \rightleftharpoons \text{A}^{-} + \text{H}_ {3}\text{O}^{+}$$</p>
@@ -221,22 +221,24 @@
 <p>This is related to the standard Gibbs free energy change through:</p>
 <p>$$\Delta G^{\circ} = -RT\ln K_ {a}$$</p>
 <p>where $R$ is the gas constant, $T$ is the absolute temperature, and $\Delta G^{\circ}$ is the standard Gibbs free energy change for the dissociation process.</p>
+<iframe src="https://tsiyukino.github.io/blog/images/acid-base-equilibrium/molecular-orbital-visualization-acid.html" width="800" height="600" frameborder="0" allowfullscreen style="display: block; margin: auto;"></iframe>
 <p>For base dissociation:</p>
 <p>$$\text{B} + \text{H}_ {2}\text{O} \rightleftharpoons \text{BH}^{+} + \text{OH}^{-}$$</p>
 <p>With base dissociation constant:</p>
 <p>$$K_ {b} = \frac{[\text{BH}^{+}][\text{OH}^{-}]}{[\text{B}]}$$</p>
+<iframe src="https://tsiyukino.github.io/blog/images/acid-base-equilibrium/molecular-orbital-visualization-base.html" width="800" height="600" frameborder="0" allowfullscreen style="display: block; margin: auto;"></iframe>
 <p>The relationship between $K_ {a}$ and $K_ {b}$ for a conjugate acid-base pair is:</p>
 <p>$$K_ {a} \times K_ {b} = K_ {w}$$</p>
 <p>where $K_ {w}$ is the ion product of water ($10^{-14}$ at 25°C).</p>
-<iframe src="https://tsiyukino.github.io/blog/images/acid-base-equilibrium/molecular-orbital-visualization.html" width="800" height="600" frameborder="0" allowfullscreen style="display: block; margin: auto;"></iframe>
-<h2 id="pka-and-pkb-logarithmic-scales">pKa and pKb: Logarithmic Scales</h2>
+<h2 id="textpk_a-and-textpk_b-logarithmic-scales">$\text{p}K_a$ and $\text{p}K_b$: Logarithmic Scales</h2>
 <p>The logarithmic scales $\text{p}K_ {a}$ and $\text{p}K_ {b}$ provide convenient metrics for describing acid and base strengths:</p>
 <p>$$\text{p}K_ {a} = -\log_ {10}(K_ {a})$$</p>
 <p>$$\text{p}K_ {b} = -\log_ {10}(K_ {b})$$</p>
 <p>The relationship between these values is:</p>
 <p>$$\text{p}K_ {a} + \text{p}K_ {b} = \text{p}K_ {w} = 14 \text{ (at 25°C)}$$</p>
 <p>A lower $\text{p}K_ {a}$ value indicates a stronger acid, while a lower $\text{p}K_ {b}$ value indicates a stronger base.</p>
-<p>![Comparative scale showing pKa values of common acids ranging from strong (-10 for HI) to weak (50 for methane), with key functional groups and reference compounds]</p>
+<p><img src="https://tsiyukino.github.io/blog/images/acid-base-equilibrium/pka-scale.svg" alt="pKa Scale">
+<img src="https://tsiyukino.github.io/blog/images/acid-base-equilibrium/pkb-scale.svg" alt="pKb Scale"></p>
 <h2 id="the-henderson-hasselbalch-equation-mathematical-derivation">The Henderson-Hasselbalch Equation: Mathematical Derivation</h2>
 <p>The Henderson-Hasselbalch equation is a cornerstone of acid-base equilibrium calculations. Starting from the definition of $K_ {a}$:</p>
 <p>$$K_ {a} = \frac{[\text{A}^{-}][\text{H}^{+}]}{[\text{HA}]}$$</p>
@@ -247,7 +249,7 @@
 <p>Rearranging:</p>
 <p>$$\text{pH} = \text{p}K_ {a} + \log\frac{[\text{A}^{-}]}{[\text{HA}]}$$</p>
 <p>This equation allows calculation of pH in buffer systems and provides insight into the buffer capacity and region of effectiveness.</p>
-<p>![Buffer capacity diagram showing how the ratio of [A-]/[HA] affects pH stabilization, with a graphical representation of maximum buffer capacity at pH = pKa]</p>
+<p><img src="https://tsiyukino.github.io/blog/images/acid-base-equilibrium/buffer-capacity-diagram.svg" alt="Buffer capacity diagram"></p>
 <h2 id="polyprotic-acids-and-stepwise-dissociation">Polyprotic Acids and Stepwise Dissociation</h2>
 <p>For polyprotic acids with multiple dissociable protons, the dissociation occurs in steps, each with its own $K_ {a}$ value. For a generic triprotic acid $\text{H}_ {3}\text{A}$:</p>
 <p>First dissociation:
@@ -263,7 +265,7 @@ $$\text{HA}^{2-} \rightleftharpoons \text{A}^{3-} + \text{H}^{+} \quad K_ {a3} =
 <p>$$\alpha_ {2} = \frac{[\text{HA}^{2-}]}{C_ {T}} = \frac{K_ {a1}K_ {a2}[\text{H}^{+}]}{[\text{H}^{+}]^3 + K_ {a1}[\text{H}^{+}]^2 + K_ {a1}K_ {a2}[\text{H}^{+}] + K_ {a1}K_ {a2}K_ {a3}}$$</p>
 <p>$$\alpha_ {3} = \frac{[\text{A}^{3-}]}{C_ {T}} = \frac{K_ {a1}K_ {a2}K_ {a3}}{[\text{H}^{+}]^3 + K_ {a1}[\text{H}^{+}]^2 + K_ {a1}K_ {a2}[\text{H}^{+}] + K_ {a1}K_ {a2}K_ {a3}}$$</p>
 <p>where $C_ {T}$ is the total concentration of all forms of the acid.</p>
-<p>![Species distribution diagram for phosphoric acid (H3PO4) showing the relative concentrations of H3PO4, H2PO4-, HPO4^2-, and PO4^3- species as a function of pH, with vertical lines marking each pKa value]</p>
+<iframe src="" width="900" height="600" frameborder="0" allowfullscreen style="display: block; margin: auto;"></iframe>
 <h2 id="temperature-dependence-and-the-vant-hoff-equation">Temperature Dependence and the van&rsquo;t Hoff Equation</h2>
 <p>The temperature dependence of acid dissociation constants can be described by the van&rsquo;t Hoff equation:</p>
 <p>$$\frac{d\ln K_ {a}}{dT} = \frac{\Delta H^{\circ}}{RT^2}$$</p>
