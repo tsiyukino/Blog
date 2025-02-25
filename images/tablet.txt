@@ -1,0 +1,118 @@
+  <style>
+    :root {
+      --text-color: #24292e;
+      --bg-color: #ffffff;
+      --line-color: #586069;
+      --strong-color: #d73a49;
+      --weak-color: #22863a;
+      --tick-color: #6a737d;
+      --grid-color: #eaecef;
+      --section-color: #f6f8fa;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text-color: #c9d1d9;
+        --bg-color: #0d1117;
+        --line-color: #8b949e;
+        --strong-color: #ff7b72;
+        --weak-color: #7ee787;
+        --tick-color: #6e7681;
+        --grid-color: #21262d;
+        --section-color: #161b22;
+      }
+    }
+    
+    .background {
+      fill: var(--bg-color);
+    }
+    
+    .axis {
+      stroke: var(--line-color);
+      stroke-width: 2;
+    }
+    
+    .grid {
+      stroke: var(--grid-color);
+      stroke-width: 1;
+      stroke-dasharray: 4 4;
+    }
+    
+    .tick {
+      stroke: var(--tick-color);
+      stroke-width: 1;
+    }
+    
+    .label {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      fill: var(--text-color);
+    }
+    
+    .category-label {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      fill: var(--text-color);
+    }
+    
+    .title {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      fill: var(--text-color);
+    }
+    
+    .subtitle {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      fill: var(--text-color);
+    }
+    
+    .compound {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 11px;
+      fill: var(--text-color);
+    }
+    
+    .compound-name {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      fill: var(--text-color);
+    }
+    
+    .compound-value {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 11px;
+      fill: var(--text-color);
+    }
+    
+    .compound-dot {
+      stroke: var(--line-color);
+      stroke-width: 1;
+    }
+    
+    .gradient-bar {
+      stroke-width: 8;
+    }
+    
+    .section {
+      fill: var(--section-color);
+      opacity: 0.5;
+    }
+  </style>
+
+  <!-- Background rectangle -->
+  <rect class="background" x="0" y="0" width="1000" height="600" rx="4" />
+  
+  <!-- Title and subtitle -->
+  <text class="title" x="500" y="40" text-anchor="middle">pKa Scale of Common Acids</text>
+  <text class="subtitle" x="500" y="65" text-anchor="middle">From Very Strong (pKa -10) to Extremely Weak (pKa 50)</text>
+  
+  <!-- Main section backgrounds -->
+  <rect class="section" x="50" y="100" width="180" height="430" rx="4" />
+  <rect class="section" x="230" y="100" width="180" height="430" rx="4" />
+  <rect class="section" x="410" y="100" width="180" height="430" rx="4" />
+  <rect class="section" x="590" y="100" width="180" height="430" rx="4" />
+  <rect class="section" x="770" y="100" width="180" height="430" rx="4" />

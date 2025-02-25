@@ -1,0 +1,284 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" class="distribution-diagram">
+  <style>
+    .distribution-diagram {
+      --bg-color: #000000;
+      --text-color: #ffffff;
+      --grid-color: #333333;
+      --axis-color: #999999;
+      --pka-line-color: rgba(255, 255, 255, 0.3);
+      --species1-color: #ff6b6b;
+      --species2-color: #4dabff;
+      --species3-color: #6bff6b;
+      --species4-color: #c77dff;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      .distribution-diagram {
+        --bg-color: #000000;
+        --text-color: #ffffff;
+        --grid-color: #333333;
+        --axis-color: #999999;
+        --pka-line-color: rgba(255, 255, 255, 0.3);
+        --species1-color: #ff6b6b;
+        --species2-color: #4dabff;
+        --species3-color: #6bff6b;
+        --species4-color: #c77dff;
+      }
+    }
+    
+    .dark-mode .distribution-diagram {
+      --bg-color: #000000;
+      --text-color: #ffffff;
+      --grid-color: #333333;
+      --axis-color: #999999;
+      --pka-line-color: rgba(255, 255, 255, 0.3);
+      --species1-color: #ff6b6b;
+      --species2-color: #4dabff;
+      --species3-color: #6bff6b;
+      --species4-color: #c77dff;
+    }
+    
+    .light-mode .distribution-diagram {
+      --bg-color: #000000;
+      --text-color: #ffffff;
+      --grid-color: #333333;
+      --axis-color: #999999;
+      --pka-line-color: rgba(255, 255, 255, 0.3);
+      --species1-color: #ff6b6b;
+      --species2-color: #4dabff;
+      --species3-color: #6bff6b;
+      --species4-color: #c77dff;
+    }
+    
+    .background {
+      fill: var(--bg-color);
+    }
+    
+    .grid line {
+      stroke: var(--grid-color);
+      stroke-width: 0.5;
+    }
+    
+    .axis line, .axis path {
+      stroke: var(--axis-color);
+      stroke-width: 1.5;
+    }
+    
+    .pka-line {
+      stroke: var(--pka-line-color);
+      stroke-width: 1;
+      stroke-dasharray: 5,3;
+    }
+    
+    .pka-label {
+      fill: var(--text-color);
+      font-size: 12px;
+      font-family: Arial, sans-serif;
+      text-anchor: middle;
+    }
+    
+    .species1 {
+      stroke: var(--species1-color);
+      fill: none;
+      stroke-width: 2.5;
+    }
+    
+    .species2 {
+      stroke: var(--species2-color);
+      fill: none;
+      stroke-width: 2.5;
+    }
+    
+    .species3 {
+      stroke: var(--species3-color);
+      fill: none;
+      stroke-width: 2.5;
+    }
+    
+    .species4 {
+      stroke: var(--species4-color);
+      fill: none;
+      stroke-width: 2.5;
+    }
+    
+    text {
+      fill: var(--text-color);
+      font-family: Arial, sans-serif;
+    }
+    
+    .axis-label {
+      font-size: 14px;
+      font-weight: bold;
+    }
+    
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+      text-anchor: middle;
+    }
+    
+    .legend-item {
+      font-size: 12px;
+    }
+    
+    .legend-line {
+      stroke-width: 2.5;
+    }
+  </style>
+
+  <!-- Background -->
+  <rect class="background" x="0" y="0" width="800" height="500" />
+
+  <!-- Title -->
+  <text class="title" x="400" y="30">Phosphoric Acid Species Distribution Diagram</text>
+
+  <!-- Grid -->
+  <g class="grid">
+    <!-- Horizontal grid lines (every 10%) -->
+    <line x1="100" y1="100" x2="700" y2="100" />
+    <line x1="100" y1="150" x2="700" y2="150" />
+    <line x1="100" y1="200" x2="700" y2="200" />
+    <line x1="100" y1="250" x2="700" y2="250" />
+    <line x1="100" y1="300" x2="700" y2="300" />
+    <line x1="100" y1="350" x2="700" y2="350" />
+    <line x1="100" y1="400" x2="700" y2="400" />
+    
+    <!-- Vertical grid lines (every 1 pH unit) -->
+    <line x1="142.9" y1="100" x2="142.9" y2="400" />
+    <line x1="185.7" y1="100" x2="185.7" y2="400" />
+    <line x1="228.6" y1="100" x2="228.6" y2="400" />
+    <line x1="271.4" y1="100" x2="271.4" y2="400" />
+    <line x1="314.3" y1="100" x2="314.3" y2="400" />
+    <line x1="357.1" y1="100" x2="357.1" y2="400" />
+    <line x1="400.0" y1="100" x2="400.0" y2="400" />
+    <line x1="442.9" y1="100" x2="442.9" y2="400" />
+    <line x1="485.7" y1="100" x2="485.7" y2="400" />
+    <line x1="528.6" y1="100" x2="528.6" y2="400" />
+    <line x1="571.4" y1="100" x2="571.4" y2="400" />
+    <line x1="614.3" y1="100" x2="614.3" y2="400" />
+    <line x1="657.1" y1="100" x2="657.1" y2="400" />
+  </g>
+
+  <!-- pKa vertical lines -->
+  <g class="pka-lines">
+    <!-- pKa1 = 2.15 -->
+    <line class="pka-line" x1="194.6" y1="250" x2="194.6" y2="400" />
+    <text class="pka-label" x="194.6" y="435">pKa₁ = 2.15</text>
+    
+    <!-- pKa2 = 7.20 -->
+    <line class="pka-line" x1="414.3" y1="250" x2="414.3" y2="400" />
+    <text class="pka-label" x="414.3" y="435">pKa₂ = 7.20</text>
+    
+    <!-- pKa3 = 12.35 -->
+    <line class="pka-line" x1="636.4" y1="250" x2="636.4" y2="400" />
+    <text class="pka-label" x="636.4" y="435">pKa₃ = 12.35</text>
+  </g>
+
+  <!-- Axes -->
+  <g class="axis">
+    <line x1="100" y1="400" x2="700" y2="400" /> <!-- x-axis -->
+    <line x1="100" y1="100" x2="100" y2="400" /> <!-- y-axis -->
+    
+    <!-- x-axis ticks and labels -->
+    <line x1="100" y1="400" x2="100" y2="405" />
+    <text x="100" y="420" text-anchor="middle">0</text>
+    
+    <line x1="142.9" y1="400" x2="142.9" y2="405" />
+    <text x="142.9" y="420" text-anchor="middle">1</text>
+    
+    <line x1="185.7" y1="400" x2="185.7" y2="405" />
+    <text x="185.7" y="420" text-anchor="middle">2</text>
+    
+    <line x1="228.6" y1="400" x2="228.6" y2="405" />
+    <text x="228.6" y="420" text-anchor="middle">3</text>
+    
+    <line x1="271.4" y1="400" x2="271.4" y2="405" />
+    <text x="271.4" y="420" text-anchor="middle">4</text>
+    
+    <line x1="314.3" y1="400" x2="314.3" y2="405" />
+    <text x="314.3" y="420" text-anchor="middle">5</text>
+    
+    <line x1="357.1" y1="400" x2="357.1" y2="405" />
+    <text x="357.1" y="420" text-anchor="middle">6</text>
+    
+    <line x1="400.0" y1="400" x2="400.0" y2="405" />
+    <text x="400.0" y="420" text-anchor="middle">7</text>
+    
+    <line x1="442.9" y1="400" x2="442.9" y2="405" />
+    <text x="442.9" y="420" text-anchor="middle">8</text>
+    
+    <line x1="485.7" y1="400" x2="485.7" y2="405" />
+    <text x="485.7" y="420" text-anchor="middle">9</text>
+    
+    <line x1="528.6" y1="400" x2="528.6" y2="405" />
+    <text x="528.6" y="420" text-anchor="middle">10</text>
+    
+    <line x1="571.4" y1="400" x2="571.4" y2="405" />
+    <text x="571.4" y="420" text-anchor="middle">11</text>
+    
+    <line x1="614.3" y1="400" x2="614.3" y2="405" />
+    <text x="614.3" y="420" text-anchor="middle">12</text>
+    
+    <line x1="657.1" y1="400" x2="657.1" y2="405" />
+    <text x="657.1" y="420" text-anchor="middle">13</text>
+    
+    <line x1="700" y1="400" x2="700" y2="405" />
+    <text x="700" y="420" text-anchor="middle">14</text>
+    
+    <!-- y-axis ticks and labels -->
+    <line x1="95" y1="400" x2="100" y2="400" />
+    <text x="90" y="405" text-anchor="end">0</text>
+    
+    <line x1="95" y1="350" x2="100" y2="350" />
+    <text x="90" y="355" text-anchor="end">10</text>
+    
+    <line x1="95" y1="300" x2="100" y2="300" />
+    <text x="90" y="305" text-anchor="end">20</text>
+    
+    <line x1="95" y1="250" x2="100" y2="250" />
+    <text x="90" y="255" text-anchor="end">30</text>
+    
+    <line x1="95" y1="200" x2="100" y2="200" />
+    <text x="90" y="205" text-anchor="end">40</text>
+    
+    <line x1="95" y1="150" x2="100" y2="150" />
+    <text x="90" y="155" text-anchor="end">50</text>
+    
+    <line x1="95" y1="100" x2="100" y2="100" />
+    <text x="90" y="105" text-anchor="end">60</text>
+    
+    <!-- Axis labels -->
+    <text class="axis-label" x="400" y="450" text-anchor="middle">pH</text>
+    <text class="axis-label" x="50" y="250" text-anchor="middle" transform="rotate(-90 50 250)">Concentration (%)</text>
+  </g>
+
+  <!-- Species distribution curves -->
+  <!-- H3PO4 (species1) -->
+  <path class="species1" d="M100,100 L114.3,100.1 L128.6,100.3 L142.9,100.9 L157.1,102.6 L171.4,106.9 L185.7,118.1 L200,143.5 L214.3,183.4 L228.6,236.2 L242.9,290.7 L257.1,337.9 L271.4,371.5 L285.7,391.1 L300,399.4 L314.3,399.9 L328.6,400 L342.9,400 L357.1,400 L371.4,400 L385.7,400 L400,400 L414.3,400 L428.6,400 L442.9,400 L457.1,400 L471.4,400 L485.7,400 L500,400 L514.3,400 L528.6,400 L542.9,400 L557.1,400 L571.4,400 L585.7,400 L600,400 L614.3,400 L628.6,400 L642.9,400 L657.1,400 L671.4,400 L685.7,400 L700,400" />
+  
+  <!-- H2PO4- (species2) -->
+  <path class="species2" d="M100,400 L114.3,399.9 L128.6,399.7 L142.9,399.1 L157.1,397.4 L171.4,393.1 L185.7,381.9 L200,356.5 L214.3,316.6 L228.6,264.2 L242.9,210.5 L257.1,163.5 L271.4,128.8 L285.7,108.0 L300,101.1 L314.3,101.3 L328.6,104.7 L342.9,114.6 L357.1,136.3 L371.4,174.2 L385.7,225.5 L400,281.9 L414.3,332.9 L428.6,371.2 L442.9,391.4 L457.1,398.1 L471.4,399.7 L485.7,399.9 L500,400 L514.3,400 L528.6,400 L542.9,400 L557.1,400 L571.4,400 L585.7,400 L600,400 L614.3,400 L628.6,400 L642.9,400 L657.1,400 L671.4,400 L685.7,400 L700,400" />
+  
+  <!-- HPO4^2- (species3) -->
+  <path class="species3" d="M100,400 L114.3,400 L128.6,400 L142.9,400 L157.1,400 L171.4,400 L185.7,400 L200,400 L214.3,400 L228.6,399.8 L242.9,398.8 L257.1,398.6 L271.4,399.7 L285.7,399.9 L300,399.5 L314.3,398.8 L328.6,395.3 L342.9,385.4 L357.1,363.7 L371.4,325.8 L385.7,274.5 L400,218.1 L414.3,167.1 L428.6,128.8 L442.9,108.6 L457.1,101.9 L471.4,100.3 L485.7,100.1 L500,100.1 L514.3,100.7 L528.6,103.1 L542.9,110.7 L557.1,130.8 L571.4,171.1 L585.7,227.9 L600,290.6 L614.3,344.3 L628.6,380.1 L642.9,395.8 L657.1,399.2 L671.4,399.9 L685.7,400 L700,400" />
+  
+  <!-- PO4^3- (species4) -->
+  <path class="species4" d="M100,400 L114.3,400 L128.6,400 L142.9,400 L157.1,400 L171.4,400 L185.7,400 L200,400 L214.3,400 L228.6,400 L242.9,400 L257.1,400 L271.4,400 L285.7,400 L300,400 L314.3,400 L328.6,400 L342.9,400 L357.1,400 L371.4,400 L385.7,400 L400,400 L414.3,400 L428.6,400 L442.9,400 L457.1,400 L471.4,400 L485.7,400 L500,399.9 L514.3,399.3 L528.6,396.9 L542.9,389.3 L557.1,369.2 L571.4,328.9 L585.7,272.1 L600,209.4 L614.3,155.7 L628.6,119.9 L642.9,104.2 L657.1,100.8 L671.4,100.1 L685.7,100 L700,100" />
+
+  <!-- Legend -->
+  <g class="legend" transform="translate(600, 130)">
+    <rect class="background" x="-10" y="-15" width="160" height="105" rx="5" ry="5" opacity="0.7"/>
+    
+    <line class="legend-line species1" x1="0" y1="0" x2="30" y2="0" />
+    <text class="legend-item" x="40" y="5">H₃PO₄</text>
+    
+    <line class="legend-line species2" x1="0" y1="25" x2="30" y2="25" />
+    <text class="legend-item" x="40" y="30">H₂PO₄⁻</text>
+    
+    <line class="legend-line species3" x1="0" y1="50" x2="30" y2="50" />
+    <text class="legend-item" x="40" y="55">HPO₄²⁻</text>
+    
+    <line class="legend-line species4" x1="0" y1="75" x2="30" y2="75" />
+    <text class="legend-item" x="40" y="80">PO₄³⁻</text>
+  </g>
+</svg>
