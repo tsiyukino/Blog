@@ -1,0 +1,360 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650">
+  <style>
+    :root {
+      --text-color: #24292e;
+      --bg-color: #ffffff;
+      --line-color: #586069;
+      --strong-color: #d73a49;
+      --weak-color: #22863a;
+      --tick-color: #6a737d;
+      --grid-color: #eaecef;
+      --section-color: #f6f8fa;
+      --formula-color: #0366d6;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text-color: #c9d1d9;
+        --bg-color: #0d1117;
+        --line-color: #8b949e;
+        --strong-color: #ff7b72;
+        --weak-color: #7ee787;
+        --tick-color: #6e7681;
+        --grid-color: #21262d;
+        --section-color: #161b22;
+        --formula-color: #58a6ff;
+      }
+    }
+    
+    .background {
+      fill: var(--bg-color);
+    }
+    
+    .axis {
+      stroke: var(--line-color);
+      stroke-width: 2;
+    }
+    
+    .grid {
+      stroke: var(--grid-color);
+      stroke-width: 1;
+      stroke-dasharray: 4 4;
+    }
+    
+    .tick {
+      stroke: var(--tick-color);
+      stroke-width: 1;
+    }
+    
+    .label {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      fill: var(--text-color);
+    }
+    
+    .axis-label {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      fill: var(--text-color);
+    }
+    
+    .title {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      fill: var(--text-color);
+    }
+    
+    .subtitle {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      fill: var(--text-color);
+    }
+    
+    .acetic-line {
+      stroke: var(--strong-color);
+      stroke-width: 2.5;
+      fill: none;
+    }
+    
+    .ammonia-line {
+      stroke: var(--weak-color);
+      stroke-width: 2.5;
+      fill: none;
+    }
+    
+    .data-point {
+      stroke-width: 1.5;
+    }
+    
+    .acetic-point {
+      fill: var(--strong-color);
+      stroke: var(--strong-color);
+    }
+    
+    .ammonia-point {
+      fill: var(--weak-color);
+      stroke: var(--weak-color);
+    }
+    
+    .annotation {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      font-style: italic;
+      fill: var(--text-color);
+    }
+    
+    .panel {
+      fill: var(--section-color);
+      stroke: var(--grid-color);
+      stroke-width: 1;
+      rx: 4;
+    }
+    
+    .equation {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      fill: var(--text-color);
+    }
+    
+    .formula {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      fill: var(--formula-color);
+    }
+    
+    .data-table {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 11px;
+      fill: var(--text-color);
+    }
+    
+    .table-header {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      fill: var(--text-color);
+    }
+    
+    .calculation {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      fill: var(--text-color);
+    }
+  </style>
+
+  <!-- Background rectangle -->
+  <rect class="background" x="0" y="0" width="1000" height="650" rx="4" />
+  
+  <!-- Title -->
+  <text class="title" x="500" y="40" text-anchor="middle">Van't Hoff Equation: Effect of Temperature on Ka</text>
+  
+  <!-- Van't Hoff equation -->
+  <text class="subtitle" x="500" y="80" text-anchor="middle">ln(K₂/K₁) = (ΔH°/R) × (1/T₁ - 1/T₂)</text>
+  
+  <!-- Panel backgrounds -->
+  <rect class="panel" x="50" y="120" width="425" height="280" />
+  <rect class="panel" x="525" y="120" width="425" height="280" />
+  
+  <!-- Acetic Acid Graph -->
+  <g transform="translate(100, 150)">
+    <!-- Panel title -->
+    <text class="subtitle" x="160" y="20" text-anchor="middle">Acetic Acid (CH₃COOH)</text>
+    <text class="annotation" x="160" y="40" text-anchor="middle">ΔH° = +0.41 kJ/mol (endothermic)</text>
+    
+    <!-- X-axis (Temperature) -->
+    <line class="axis" x1="0" y1="200" x2="320" y2="200" />
+    <!-- Y-axis (pKa) -->
+    <line class="axis" x1="0" y1="0" x2="0" y2="200" />
+    
+    <!-- X-axis ticks and labels -->
+    <g>
+      <line class="tick" x1="0" y1="200" x2="0" y2="205" />
+      <text class="label" x="0" y="220" text-anchor="middle">0</text>
+      
+      <line class="tick" x1="80" y1="200" x2="80" y2="205" />
+      <text class="label" x="80" y="220" text-anchor="middle">25</text>
+      
+      <line class="tick" x1="160" y1="200" x2="160" y2="205" />
+      <text class="label" x="160" y="220" text-anchor="middle">50</text>
+      
+      <line class="tick" x1="240" y1="200" x2="240" y2="205" />
+      <text class="label" x="240" y="220" text-anchor="middle">75</text>
+      
+      <line class="tick" x1="320" y1="200" x2="320" y2="205" />
+      <text class="label" x="320" y="220" text-anchor="middle">100</text>
+    </g>
+    
+    <!-- Y-axis ticks and labels -->
+    <g>
+      <line class="tick" x1="0" y1="150" x2="-5" y2="150" />
+      <text class="label" x="-10" y="154" text-anchor="end">4.74</text>
+      
+      <line class="tick" x1="0" y1="100" x2="-5" y2="100" />
+      <text class="label" x="-10" y="104" text-anchor="end">4.75</text>
+      
+      <line class="tick" x1="0" y1="50" x2="-5" y2="50" />
+      <text class="label" x="-10" y="54" text-anchor="end">4.76</text>
+      
+      <line class="tick" x1="0" y1="0" x2="-5" y2="0" />
+      <text class="label" x="-10" y="4" text-anchor="end">4.77</text>
+    </g>
+    
+    <!-- Grid lines -->
+    <g>
+      <line class="grid" x1="0" y1="150" x2="320" y2="150" />
+      <line class="grid" x1="0" y1="100" x2="320" y2="100" />
+      <line class="grid" x1="0" y1="50" x2="320" y2="50" />
+      
+      <line class="grid" x1="80" y1="0" x2="80" y2="200" />
+      <line class="grid" x1="160" y1="0" x2="160" y2="200" />
+      <line class="grid" x1="240" y1="0" x2="240" y2="200" />
+    </g>
+    
+    <!-- Axis labels -->
+    <text class="axis-label" x="160" y="245" text-anchor="middle">Temperature (°C)</text>
+    <text class="axis-label" x="-40" y="100" text-anchor="middle" transform="rotate(-90, -40, 100)">pKa Value</text>
+    
+    <!-- Data: Acetic Acid -->
+    <polyline class="acetic-line" points="
+      0,50 16,50 32,50 48,50 64,50 80,100 96,100 112,100 
+      128,100 144,100 160,100 176,100 192,100 208,100 224,100 
+      240,150 256,150 272,150 288,150 304,150 320,150
+    " />
+    
+    <!-- Data points for key temperatures -->
+    <circle class="data-point acetic-point" cx="0" cy="50" r="4" />
+    <circle class="data-point acetic-point" cx="80" cy="100" r="4" />
+    <circle class="data-point acetic-point" cx="160" cy="100" r="4" />
+    <circle class="data-point acetic-point" cx="240" cy="150" r="4" />
+    <circle class="data-point acetic-point" cx="320" cy="150" r="4" />
+    
+    <!-- Calculation example -->
+    <text class="calculation" x="10" y="190" text-anchor="start">ΔpKa = -0.02 (almost no change)</text>
+  </g>
+  
+  <!-- Ammonia Graph -->
+  <g transform="translate(575, 150)">
+    <!-- Panel title -->
+    <text class="subtitle" x="160" y="20" text-anchor="middle">Ammonia (NH₃)</text>
+    <text class="annotation" x="160" y="40" text-anchor="middle">ΔH° = -52.2 kJ/mol (exothermic)</text>
+    
+    <!-- X-axis (Temperature) -->
+    <line class="axis" x1="0" y1="200" x2="320" y2="200" />
+    <!-- Y-axis (pKa) -->
+    <line class="axis" x1="0" y1="0" x2="0" y2="200" />
+    
+    <!-- X-axis ticks and labels -->
+    <g>
+      <line class="tick" x1="0" y1="200" x2="0" y2="205" />
+      <text class="label" x="0" y="220" text-anchor="middle">0</text>
+      
+      <line class="tick" x1="80" y1="200" x2="80" y2="205" />
+      <text class="label" x="80" y="220" text-anchor="middle">25</text>
+      
+      <line class="tick" x1="160" y1="200" x2="160" y2="205" />
+      <text class="label" x="160" y="220" text-anchor="middle">50</text>
+      
+      <line class="tick" x1="240" y1="200" x2="240" y2="205" />
+      <text class="label" x="240" y="220" text-anchor="middle">75</text>
+      
+      <line class="tick" x1="320" y1="200" x2="320" y2="205" />
+      <text class="label" x="320" y="220" text-anchor="middle">100</text>
+    </g>
+    
+    <!-- Y-axis ticks and labels -->
+    <g>
+      <line class="tick" x1="0" y1="200" x2="-5" y2="200" />
+      <text class="label" x="-10" y="204" text-anchor="end">5</text>
+      
+      <line class="tick" x1="0" y1="150" x2="-5" y2="150" />
+      <text class="label" x="-10" y="154" text-anchor="end">7</text>
+      
+      <line class="tick" x1="0" y1="100" x2="-5" y2="100" />
+      <text class="label" x="-10" y="104" text-anchor="end">9</text>
+      
+      <line class="tick" x1="0" y1="50" x2="-5" y2="50" />
+      <text class="label" x="-10" y="54" text-anchor="end">11</text>
+    </g>
+    
+    <!-- Grid lines -->
+    <g>
+      <line class="grid" x1="0" y1="150" x2="320" y2="150" />
+      <line class="grid" x1="0" y1="100" x2="320" y2="100" />
+      <line class="grid" x1="0" y1="50" x2="320" y2="50" />
+      
+      <line class="grid" x1="80" y1="0" x2="80" y2="200" />
+      <line class="grid" x1="160" y1="0" x2="160" y2="200" />
+      <line class="grid" x1="240" y1="0" x2="240" y2="200" />
+    </g>
+    
+    <!-- Axis labels -->
+    <text class="axis-label" x="160" y="245" text-anchor="middle">Temperature (°C)</text>
+    <text class="axis-label" x="-40" y="100" text-anchor="middle" transform="rotate(-90, -40, 100)">pKa Value</text>
+    
+    <!-- Data: Ammonia -->
+    <polyline class="ammonia-line" points="
+      0,50 16,64 32,78 48,92 64,105 80,119 96,128 112,137 
+      128,146 144,153 160,160 176,167 192,173 208,178 224,183 
+      240,187 256,191 272,195 288,198 304,199 320,200
+    " />
+    
+    <!-- Data points for key temperatures -->
+    <circle class="data-point ammonia-point" cx="0" cy="50" r="4" />
+    <circle class="data-point ammonia-point" cx="80" cy="119" r="4" />
+    <circle class="data-point ammonia-point" cx="160" cy="160" r="4" />
+    <circle class="data-point ammonia-point" cx="240" cy="187" r="4" />
+    <circle class="data-point ammonia-point" cx="320" cy="200" r="4" />
+    
+    <!-- Calculation example -->
+    <text class="calculation" x="10" y="190" text-anchor="start">ΔpKa = -5.54 (dramatic decrease)</text>
+  </g>
+  
+  <!-- Data table -->
+  <g transform="translate(50, 430)">
+    <rect class="panel" x="0" y="0" width="900" height="170" />
+    
+    <!-- Table title -->
+    <text class="subtitle" x="450" y="25" text-anchor="middle">Van't Hoff Equation: Data and Calculations</text>
+    
+    <!-- Headers -->
+    <text class="table-header" x="30" y="50" text-anchor="start">T (°C)</text>
+    <text class="table-header" x="100" y="50" text-anchor="middle">Ka (Acetic)</text>
+    <text class="table-header" x="200" y="50" text-anchor="middle">pKa (Acetic)</text>
+    <text class="table-header" x="300" y="50" text-anchor="middle">Ka (Ammonia)</text>
+    <text class="table-header" x="400" y="50" text-anchor="middle">pKa (Ammonia)</text>
+    
+    <!-- Data rows -->
+    <text class="data-table" x="30" y="70" text-anchor="start">0</text>
+    <text class="data-table" x="100" y="70" text-anchor="middle">1.73 × 10⁻⁵</text>
+    <text class="data-table" x="200" y="70" text-anchor="middle">4.76</text>
+    <text class="data-table" x="300" y="70" text-anchor="middle">1.03 × 10⁻¹¹</text>
+    <text class="data-table" x="400" y="70" text-anchor="middle">10.99</text>
+    
+    <text class="data-table" x="30" y="90" text-anchor="start">25</text>
+    <text class="data-table" x="100" y="90" text-anchor="middle">1.76 × 10⁻⁵</text>
+    <text class="data-table" x="200" y="90" text-anchor="middle">4.75</text>
+    <text class="data-table" x="300" y="90" text-anchor="middle">5.56 × 10⁻¹⁰</text>
+    <text class="data-table" x="400" y="90" text-anchor="middle">9.26</text>
+    
+    <text class="data-table" x="30" y="110" text-anchor="start">50</text>
+    <text class="data-table" x="100" y="110" text-anchor="middle">1.78 × 10⁻⁵</text>
+    <text class="data-table" x="200" y="110" text-anchor="middle">4.75</text>
+    <text class="data-table" x="300" y="110" text-anchor="middle">1.62 × 10⁻⁸</text>
+    <text class="data-table" x="400" y="110" text-anchor="middle">7.79</text>
+    
+    <text class="data-table" x="30" y="130" text-anchor="start">75</text>
+    <text class="data-table" x="100" y="130" text-anchor="middle">1.80 × 10⁻⁵</text>
+    <text class="data-table" x="200" y="130" text-anchor="middle">4.74</text>
+    <text class="data-table" x="300" y="130" text-anchor="middle">2.91 × 10⁻⁷</text>
+    <text class="data-table" x="400" y="130" text-anchor="middle">6.54</text>
+    
+    <text class="data-table" x="30" y="150" text-anchor="start">100</text>
+    <text class="data-table" x="100" y="150" text-anchor="middle">1.82 × 10⁻⁵</text>
+    <text class="data-table" x="200" y="150" text-anchor="middle">4.74</text>
+    <text class="data-table" x="300" y="150" text-anchor="middle">3.54 × 10⁻⁶</text>
+    <text class="data-table" x="400" y="150" text-anchor="middle">5.45</text>
+    </g>
+</svg>
