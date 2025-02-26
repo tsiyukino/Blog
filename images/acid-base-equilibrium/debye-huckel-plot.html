@@ -1,0 +1,459 @@
+        // Set scene centered but lower in the viewport
+        scene.position.y = -2.5;        // Remove update gradient call here
+        const updateGradient = function() {
+            // Function kept for compatibility but gradient is now hidden
+            const lowColor = getCSSVariable('--text-color');
+            const highColor = getCSSVariable('--line-color');
+            
+            const gradient = document.getElementById('gradient');
+            if (gradient) {
+                gradient.style.background = `linear-gradient(to bottom, ${highColor}, ${lowColor})`;
+            }
+        };<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Activity Coefficients - Debye-Hückel Theory</title>
+    <style>
+        :root {
+            --text-color: #24292e;
+            --bg-color: #ffffff;
+            --line-color: #586069;
+            --grid-color: #eaecef;
+            --section-color: #f6f8fa;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-color: #c9d1d9;
+                --bg-color: #0d1117;
+                --line-color: #8b949e;
+                --grid-color: #21262d;
+                --section-color: #161b22;
+            }
+        }
+        
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        #info {
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            z-index: 100;
+        }
+        
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        h1 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0 0 5px 0;
+        }
+        
+        p {
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        #legend {
+            display: none;
+        }
+        
+        #gradient {
+            width: 20px;
+            height: 150px;
+            margin-right: 10px;
+            display: inline-block;
+        }
+        
+        /* Set gradient dynamically with JavaScript to match theme */
+        
+        #labels {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="info">
+        <h1>Activity Coefficients in Ionic Solutions</h1>
+        <p>3D visualization of Debye-Hückel theory showing deviation from ideal behavior at higher concentrations</p>
+    </div>
+    
+    <div id="canvas-container"></div>
+    
+    <div id="legend">
+        <div id="gradient"></div>
+        <div id="labels">
+            <div>1.0</div>
+            <div>0.75</div>
+            <div>0.5</div>
+            <div>0.25</div>
+            <div>0.0</div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script>
+        // Get CSS variables for theme support
+        function getCSSVariable(name) {
+            return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+        }
+        
+        // Setup Three.js scene
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(getCSSVariable('--bg-color'));
+        
+        // Define updateGradient at the top level
+        function updateGradient() {
+            const lowColor = getCSSVariable('--text-color');
+            const highColor = getCSSVariable('--line-color');
+            
+            const gradient = document.getElementById('gradient');
+            if (gradient) {
+                gradient.style.background = `linear-gradient(to bottom, ${highColor}, ${lowColor})`;
+            }
+        }
+        
+        // Set up renderer
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+        
+        // Camera starts positioned higher up and looking down
+        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(4, 6, 4);
+        camera.lookAt(0, 0, 0);
+        camera.lookAt(0, 0, 0);
+        
+        // Add orbit controls (simplified)
+        class OrbitControls {
+            constructor(camera, domElement) {
+                this.camera = camera;
+                this.domElement = domElement;
+                this.target = new THREE.Vector3();
+                this.enableDamping = false;
+                this.dampingFactor = 0.05;
+                this.enabled = true;
+                
+                // Initial setup
+                this.spherical = new THREE.Spherical().setFromVector3(
+                    camera.position.clone().sub(this.target)
+                );
+                
+                // Mouse event variables
+                this.rotateStart = new THREE.Vector2();
+                this.rotateEnd = new THREE.Vector2();
+                this.rotateDelta = new THREE.Vector2();
+                this.rotating = false;
+                
+                // Add event listeners
+                domElement.addEventListener('mousedown', this.onMouseDown.bind(this));
+                domElement.addEventListener('mousemove', this.onMouseMove.bind(this));
+                domElement.addEventListener('mouseup', this.onMouseUp.bind(this));
+                domElement.addEventListener('wheel', this.onMouseWheel.bind(this));
+                
+                // Auto rotate disabled
+                this.autoRotate = false;
+                this.autoRotateSpeed = 0;
+            }
+            
+            onMouseDown(event) {
+                if (!this.enabled) return;
+                
+                this.rotateStart.set(event.clientX, event.clientY);
+                this.rotating = true;
+            }
+            
+            onMouseMove(event) {
+                if (!this.enabled || !this.rotating) return;
+                
+                this.rotateEnd.set(event.clientX, event.clientY);
+                this.rotateDelta.subVectors(this.rotateEnd, this.rotateStart);
+                
+                // Rotate based on mouse movement
+                this.spherical.theta -= 2 * Math.PI * this.rotateDelta.x / this.domElement.clientWidth;
+                this.spherical.phi -= 2 * Math.PI * this.rotateDelta.y / this.domElement.clientHeight;
+                
+                // Clamp phi to avoid the poles
+                this.spherical.phi = Math.max(0.1, Math.min(Math.PI - 0.1, this.spherical.phi));
+                
+                this.rotateStart.copy(this.rotateEnd);
+                this.update();
+            }
+            
+            onMouseUp() {
+                this.rotating = false;
+            }
+            
+            onMouseWheel(event) {
+                if (!this.enabled) return;
+                
+                // Zoom in/out
+                this.spherical.radius += event.deltaY * 0.01;
+                this.spherical.radius = Math.max(1, Math.min(10, this.spherical.radius));
+                this.update();
+                
+                event.preventDefault();
+            }
+            
+            update() {
+                if (this.autoRotate && !this.rotating) {
+                    this.spherical.theta += this.autoRotateSpeed / 100;
+                }
+                
+                // Calculate new camera position from spherical coordinates
+                const x = this.spherical.radius * Math.sin(this.spherical.phi) * Math.cos(this.spherical.theta);
+                const y = this.spherical.radius * Math.cos(this.spherical.phi);
+                const z = this.spherical.radius * Math.sin(this.spherical.phi) * Math.sin(this.spherical.theta);
+                
+                this.camera.position.set(x, y, z);
+                this.camera.lookAt(this.target);
+                
+                return true;
+            }
+        }
+        
+        const controls = new OrbitControls(camera, renderer.domElement);
+        
+        // Add lights
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+        
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(1, 1, 1);
+        scene.add(directionalLight);
+        
+        // Create axes
+        function createAxes() {
+            const axesHelper = new THREE.AxesHelper(3);
+            scene.add(axesHelper);
+            
+            // Add axis labels
+            function createLabel(text, position, color) {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 256;
+                canvas.height = 128;
+                
+                ctx.fillStyle = color;
+                ctx.font = 'bold 30px Arial';
+                ctx.fillText(text, 10, 50);
+                
+                const texture = new THREE.CanvasTexture(canvas);
+                const material = new THREE.SpriteMaterial({ map: texture });
+                const sprite = new THREE.Sprite(material);
+                sprite.position.copy(position);
+                sprite.scale.set(1.2, 0.6, 1);
+                
+                return sprite;
+            }
+            
+            const textColor = getCSSVariable('--text-color');
+            
+            const xLabel = createLabel("Ionic Strength (I)", new THREE.Vector3(4.5, 0, 0), textColor);
+            const yLabel = createLabel("Activity Coefficient (γ)", new THREE.Vector3(0, 4.5, 0), textColor);
+            const zLabel = createLabel("Ion Charge (z)", new THREE.Vector3(0, 0, 4.5), textColor);
+            
+            scene.add(xLabel);
+            scene.add(yLabel);
+            scene.add(zLabel);
+            
+            return { xLabel, yLabel, zLabel };
+        }
+        
+        const axisLabels = createAxes();
+        
+        // Create grid
+        const gridHelper = new THREE.GridHelper(3, 15, getCSSVariable('--grid-color'), getCSSVariable('--grid-color'));
+        gridHelper.position.y = -0.01;  // Slight offset to avoid z-fighting
+        scene.add(gridHelper);
+        
+        // Surface parameters
+        const params = {
+            A: 0.5,        // Debye-Hückel constant
+            resolution: 50 // Surface resolution
+        };
+        
+        // Create surface geometry
+        function createSurfaceGeometry() {
+            // Create a grid of points
+            const resolution = params.resolution;
+            const geometry = new THREE.BufferGeometry();
+            const vertices = [];
+            const colors = [];
+            const indices = [];
+            
+            // Generate vertices based on Debye-Hückel theory
+            for (let i = 0; i <= resolution; i++) {
+                const v = i / resolution;  // 0 to 1
+                const charge = v * 6 - 3;  // -3 to +3
+                
+                for (let j = 0; j <= resolution; j++) {
+                    const u = j / resolution;  // 0 to 1
+                    // Reverse the ionic strength to show more of higher concentrations
+                    const ionicStrength = (1 - u) * 2;  // 2 to 0
+                    
+                    // Calculate activity coefficient using Debye-Hückel theory
+                    // log γ = -A * z² * √I
+                    let gamma = 1.0;
+                    
+                    if (ionicStrength > 0.01) {
+                        const logGamma = -params.A * charge * charge * Math.sqrt(ionicStrength);
+                        gamma = Math.pow(10, logGamma);
+                        
+                        // Ensure value is between 0 and 1
+                        gamma = Math.max(0, Math.min(1, gamma));
+                    }
+                    
+                    // Add vertex with gamma as the Y coordinate (vertical axis)
+                    vertices.push(ionicStrength, gamma, charge);
+                    
+            // Add color based on theme-compatible gradient
+            const lowColor = new THREE.Color(getCSSVariable('--text-color')).multiplyScalar(0.3); // Darker version of text color
+            const highColor = new THREE.Color(getCSSVariable('--line-color'));
+            
+            // Blend colors based on gamma value
+            const color = new THREE.Color().lerpColors(lowColor, highColor, gamma);
+            colors.push(color.r, color.g, color.b);
+                }
+            }
+            
+            // Create faces (triangles) from vertices
+            for (let i = 0; i < resolution; i++) {
+                for (let j = 0; j < resolution; j++) {
+                    const a = i * (resolution + 1) + j;
+                    const b = i * (resolution + 1) + j + 1;
+                    const c = (i + 1) * (resolution + 1) + j;
+                    const d = (i + 1) * (resolution + 1) + j + 1;
+                    
+                    // Two triangles make a square face
+                    indices.push(a, c, b);
+                    indices.push(b, c, d);
+                }
+            }
+            
+            // Set attributes
+            geometry.setIndex(indices);
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+            geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+            
+            // Compute normals for lighting
+            geometry.computeVertexNormals();
+            
+            return geometry;
+        }
+        
+        let surfaceMesh, wireframeMesh;
+        
+        function updateSurface() {
+            // Remove old meshes if they exist
+            if (surfaceMesh) scene.remove(surfaceMesh);
+            if (wireframeMesh) scene.remove(wireframeMesh);
+            
+            // Create new geometry
+            const geometry = createSurfaceGeometry();
+            
+            // Create surface material and mesh - theme adaptive
+            const surfaceMaterial = new THREE.MeshLambertMaterial({
+                vertexColors: true,
+                side: THREE.DoubleSide,
+                transparent: true,
+                opacity: 0.85
+            });
+            
+            surfaceMesh = new THREE.Mesh(geometry, surfaceMaterial);
+            scene.add(surfaceMesh);
+            
+            // Create wireframe
+            const wireframeGeometry = new THREE.WireframeGeometry(geometry);
+            const wireframeMaterial = new THREE.LineBasicMaterial({
+                color: getCSSVariable('--line-color'),
+                transparent: true,
+                opacity: 0.5
+            });
+            
+            wireframeMesh = new THREE.LineSegments(wireframeGeometry, wireframeMaterial);
+            scene.add(wireframeMesh);
+        }
+        
+        // Create initial surface
+        updateSurface();
+        
+        // Listen for color scheme changes
+        const colorSchemeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+        
+        function updateColors() {
+            // Update scene background
+            scene.background = new THREE.Color(getCSSVariable('--bg-color'));
+            
+            // Update text colors
+            const textColor = getCSSVariable('--text-color');
+            
+            function updateLabel(label, text) {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 256;
+                canvas.height = 128;
+                
+                ctx.fillStyle = textColor;
+                ctx.font = 'bold 30px Arial';
+                ctx.fillText(text, 10, 50);
+                
+                if (label.material.map) label.material.map.dispose();
+                
+                const texture = new THREE.CanvasTexture(canvas);
+                label.material.map = texture;
+                label.material.needsUpdate = true;
+            }
+            
+            updateLabel(axisLabels.xLabel, "Ionic Strength (I)");
+            updateLabel(axisLabels.yLabel, "Activity Coefficient (γ)");
+            updateLabel(axisLabels.zLabel, "Ion Charge (z)");
+            
+            // Update wireframe color
+            if (wireframeMesh) {
+                wireframeMesh.material.color.set(getCSSVariable('--line-color'));
+            }
+            
+            // Update grid color
+            if (gridHelper) {
+                const gridColor = getCSSVariable('--grid-color');
+                gridHelper.material.color.set(gridColor);
+            }
+        }
+        
+        colorSchemeMedia.addEventListener('change', updateColors);
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        
+        animate();
+    </script>
+</body>
+</html>

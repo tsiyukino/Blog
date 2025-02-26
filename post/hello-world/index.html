@@ -10,6 +10,7 @@
     <link rel="stylesheet" href='https://tsiyukino.github.io/blog/css/light.css' />
     <link rel="stylesheet" href='https://tsiyukino.github.io/blog/css/dark.css' />
     <link rel="stylesheet" href='https://tsiyukino.github.io/blog/css/syntax.css' />
+    <link rel="stylesheet" href='https://tsiyukino.github.io/blog/css/music-player.css' />
     <title>Hello World - tsiyukino&#39;s blog</title>
     
     <link rel="icon" type="image/x-icon" href='https://tsiyukino.github.io/blog/images/github-mark.png'>
@@ -154,9 +155,9 @@
 
                   
                   <span class="file-info-divider"></span>
-                  Modified <relative-time datetime="Tue, 25 Feb 2025 08:26:40 &#43;0000"
+                  Modified <relative-time datetime="Wed, 26 Feb 2025 20:48:41 &#43;0000"
                     class="no-wrap">
-                    Tue, 25 Feb 2025 08:26:40 &#43;0000</relative-time>
+                    Wed, 26 Feb 2025 20:48:41 &#43;0000</relative-time>
                   
                 </div>
               </div>
@@ -255,6 +256,61 @@
 
 </div>
 
+  
+<div class="player-container">
+  <div class="player-header">
+    <div class="player-title">Music Player</div>
+    <div class="player-subtitle">Now playing: <span id="current-track-info">Select a track</span></div>
+  </div>
+  
+  <div class="player-controls">
+    <div class="control-buttons">
+      <button class="control-button" id="prev-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="19 20 9 12 19 4 19 20"></polygon>
+          <line x1="5" y1="19" x2="5" y2="5"></line>
+        </svg>
+      </button>
+      <button class="control-button" id="play-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+      </button>
+      <button class="control-button" id="next-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 4 15 12 5 20 5 4"></polygon>
+          <line x1="19" y1="5" x2="19" y2="19"></line>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="progress-container">
+      <div class="progress-bar" id="progress-bar">
+        <div class="progress-current" id="progress-current"></div>
+      </div>
+      <div class="time-display">
+        <div id="current-time">0:00</div>
+        <div id="duration">0:00</div>
+      </div>
+    </div>
+    
+    <div class="volume-control">
+      <div class="volume-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+        </svg>
+      </div>
+      <input type="range" min="0" max="1" step="0.01" value="0.7" class="volume-slider" id="volume-slider">
+    </div>
+  </div>
+  
+  <div class="playlist" id="playlist">
+    
+  </div>
+</div>
+
   <div class="footer container-xl width-full p-responsive">
   <div
     class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between flex-sm-items-center pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
@@ -282,6 +338,9 @@
 </body>
 
 <script type="application/javascript" src="https://tsiyukino.github.io/blog/js/github-style.js"></script>
+<script type="application/javascript" src="https://tsiyukino.github.io/blog/js/tracks.js"></script>
+<script type="application/javascript" src="https://tsiyukino.github.io/blog/js/music-player.js"></script>
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
   integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
