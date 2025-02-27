@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Positioning control elements
   const playerContainer = document.querySelector('.player-container');
   const minimizeButton = document.getElementById('minimize-button');
+  const maximizeButton = document.getElementById('maximize-button');
   const foldButton = document.getElementById('fold-button');
   const playerHeader = document.querySelector('.player-header');
   
@@ -147,12 +148,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // Toggle player minimization
-  function toggleMinimize() {
-    console.log("Toggling minimize");
-    const isCurrentlyMinimized = playerContainer.classList.toggle('minimized');
-    localStorage.setItem(STORAGE_KEYS.IS_MINIMIZED, isCurrentlyMinimized);
-    updateMinimizeButton(isCurrentlyMinimized);
+  // Minimize player to just an icon
+  function minimizePlayer() {
+    console.log("Minimizing player");
+    playerContainer.classList.add('minimized');
+    localStorage.setItem(STORAGE_KEYS.IS_MINIMIZED, 'true');
+  }
+  
+  // Maximize player from icon state
+  function maximizePlayer() {
+    console.log("Maximizing player");
+    playerContainer.classList.remove('minimized');
+    localStorage.setItem(STORAGE_KEYS.IS_MINIMIZED, 'false');
   }
   
   // Toggle playlist folding
@@ -162,25 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
     localStorage.setItem(STORAGE_KEYS.IS_FOLDED, isCurrentlyFolded);
     updateFoldButton(isCurrentlyFolded);
   }
-  
-  // Update minimize button icon
-  function updateMinimizeButton(isMinimized) {
-    if (isMinimized) {
-      minimizeButton.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="18 15 12 9 6 15"></polyline>
-        </svg>
-      `;
-      minimizeButton.title = "Maximize Player";
-    } else {
-      minimizeButton.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
-      `;
-      minimizeButton.title = "Minimize Player";
-    }
-  }
+
   
   // Update fold button icon
   function updateFoldButton(isFolded) {
@@ -223,7 +212,6 @@ document.addEventListener('DOMContentLoaded', function() {
       
       if (isMinimized) {
         playerContainer.classList.add('minimized');
-        updateMinimizeButton(true);
       }
       
       if (isFolded) {
@@ -356,7 +344,14 @@ document.addEventListener('DOMContentLoaded', function() {
   if (minimizeButton) {
     minimizeButton.addEventListener('click', function(e) {
       e.stopPropagation();
-      toggleMinimize();
+      minimizePlayer();
+    });
+  }
+  
+  if (maximizeButton) {
+    maximizeButton.addEventListener('click', function(e) {
+      e.stopPropagation();
+      maximizePlayer();
     });
   }
   
@@ -364,16 +359,6 @@ document.addEventListener('DOMContentLoaded', function() {
     foldButton.addEventListener('click', function(e) {
       e.stopPropagation();
       toggleFold();
-    });
-  }
-  
-  // Clicking header also toggles minimization
-  if (playerHeader) {
-    playerHeader.addEventListener('click', function(e) {
-      // Only toggle if the click is directly on the header (not on buttons)
-      if (e.target === playerHeader || e.target.closest('.player-title-area')) {
-        toggleMinimize();
-      }
     });
   }
   
