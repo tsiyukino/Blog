@@ -730,8 +730,22 @@ else {
   
 <div class="player-container">
   <div class="player-header">
-    <div class="player-title">Music Player</div>
-    <div class="player-subtitle">Now playing: <span id="current-track-info">Select a track</span></div>
+    <div class="player-title-area">
+      <div class="player-title">Music Player</div>
+      <div class="player-subtitle">Now playing: <span id="current-track-info">Select a track</span></div>
+    </div>
+    <div class="player-header-buttons">
+      <button class="fold-button" id="fold-button" title="Fold/Unfold Playlist">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+      <button class="minimize-button" id="minimize-button" title="Minimize Player">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </button>
+    </div>
   </div>
   
   <div class="player-controls">
@@ -781,7 +795,6 @@ else {
     
   </div>
 </div>
-
   <div class="footer container-xl width-full p-responsive">
   <div
     class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between flex-sm-items-center pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">

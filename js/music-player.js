@@ -1,5 +1,6 @@
 // static/js/music-player.js
 document.addEventListener('DOMContentLoaded', function() {
+  // Standard player elements
   const playButton = document.getElementById('play-button');
   const prevButton = document.getElementById('prev-button');
   const nextButton = document.getElementById('next-button');
@@ -10,6 +11,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const volumeSlider = document.getElementById('volume-slider');
   const playlist = document.getElementById('playlist');
   const currentTrackInfo = document.getElementById('current-track-info');
+  
+  // Positioning control elements
+  const playerContainer = document.querySelector('.player-container');
+  const minimizeButton = document.getElementById('minimize-button');
+  const foldButton = document.getElementById('fold-button');
+  const playerHeader = document.querySelector('.player-header');
   
   // Only initialize if player elements exist on the page
   if (!playButton || !playlist) return;
@@ -26,7 +33,9 @@ document.addEventListener('DOMContentLoaded', function() {
     CURRENT_TRACK: `${siteID}_current_track`,
     CURRENT_TIME: `${siteID}_current_time`,
     VOLUME: `${siteID}_volume`,
-    IS_PLAYING: `${siteID}_is_playing`  // Added for play state
+    IS_PLAYING: `${siteID}_is_playing`,
+    IS_MINIMIZED: `${siteID}_is_minimized`,
+    IS_FOLDED: `${siteID}_is_folded`
   };
   
   // Format time in minutes and seconds
@@ -138,6 +147,60 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
+  // Toggle player minimization
+  function toggleMinimize() {
+    console.log("Toggling minimize");
+    const isCurrentlyMinimized = playerContainer.classList.toggle('minimized');
+    localStorage.setItem(STORAGE_KEYS.IS_MINIMIZED, isCurrentlyMinimized);
+    updateMinimizeButton(isCurrentlyMinimized);
+  }
+  
+  // Toggle playlist folding
+  function toggleFold() {
+    console.log("Toggling fold");
+    const isCurrentlyFolded = playerContainer.classList.toggle('folded');
+    localStorage.setItem(STORAGE_KEYS.IS_FOLDED, isCurrentlyFolded);
+    updateFoldButton(isCurrentlyFolded);
+  }
+  
+  // Update minimize button icon
+  function updateMinimizeButton(isMinimized) {
+    if (isMinimized) {
+      minimizeButton.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+      `;
+      minimizeButton.title = "Maximize Player";
+    } else {
+      minimizeButton.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      `;
+      minimizeButton.title = "Minimize Player";
+    }
+  }
+  
+  // Update fold button icon
+  function updateFoldButton(isFolded) {
+    if (isFolded) {
+      foldButton.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 15 12 9 18 15"></polyline>
+        </svg>
+      `;
+      foldButton.title = "Show Playlist";
+    } else {
+      foldButton.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      `;
+      foldButton.title = "Hide Playlist";
+    }
+  }
+  
   // Load saved state from localStorage
   function loadSavedState() {
     try {
@@ -145,6 +208,8 @@ document.addEventListener('DOMContentLoaded', function() {
       const savedTime = localStorage.getItem(STORAGE_KEYS.CURRENT_TIME);
       const savedVolume = localStorage.getItem(STORAGE_KEYS.VOLUME);
       const wasPlaying = localStorage.getItem(STORAGE_KEYS.IS_PLAYING) === 'true';
+      const isMinimized = localStorage.getItem(STORAGE_KEYS.IS_MINIMIZED) === 'true';
+      const isFolded = localStorage.getItem(STORAGE_KEYS.IS_FOLDED) === 'true';
       
       if (savedVolume !== null) {
         const volume = parseFloat(savedVolume);
@@ -154,6 +219,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       } else {
         audio.volume = 0.7; // Default volume
+      }
+      
+      if (isMinimized) {
+        playerContainer.classList.add('minimized');
+        updateMinimizeButton(true);
+      }
+      
+      if (isFolded) {
+        playerContainer.classList.add('folded');
+        updateFoldButton(true);
       }
       
       if (tracks.length > 0) {
@@ -277,6 +352,31 @@ document.addEventListener('DOMContentLoaded', function() {
   prevButton.addEventListener('click', playPrevTrack);
   nextButton.addEventListener('click', playNextTrack);
   
+  // Set up additional button listeners for folding/minimizing
+  if (minimizeButton) {
+    minimizeButton.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleMinimize();
+    });
+  }
+  
+  if (foldButton) {
+    foldButton.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleFold();
+    });
+  }
+  
+  // Clicking header also toggles minimization
+  if (playerHeader) {
+    playerHeader.addEventListener('click', function(e) {
+      // Only toggle if the click is directly on the header (not on buttons)
+      if (e.target === playerHeader || e.target.closest('.player-title-area')) {
+        toggleMinimize();
+      }
+    });
+  }
+  
   progressBar.addEventListener('click', function(e) {
     const rect = this.getBoundingClientRect();
     const percent = (e.clientX - rect.left) / rect.width;
@@ -315,4 +415,3 @@ document.addEventListener('DOMContentLoaded', function() {
   loadSavedState();
   updatePlayButton();
 });
-
