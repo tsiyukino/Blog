@@ -22,7 +22,7 @@
 
     
     <meta name="description"
-  content="My first blog post" />
+  content="Feature Testing" />
 <meta name="keywords"
   content='blog, google analytics' />
 <meta name="robots" content="noodp" />
@@ -32,7 +32,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Hello World - tsiyukino&#39;s blog" />
 <meta name="twitter:description"
-  content="My first blog post" />
+  content="Feature Testing" />
 <meta name="twitter:site" content="https://tsiyukino.github.io/blog/" />
 <meta name="twitter:creator" content="" />
 <meta name="twitter:image"
@@ -42,7 +42,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Hello World - tsiyukino&#39;s blog">
 <meta property="og:description"
-  content="My first blog post" />
+  content="Feature Testing" />
 <meta property="og:url" content="https://tsiyukino.github.io/blog/post/hello-world/" />
 <meta property="og:site_name" content="Hello World" />
 <meta property="og:image"
@@ -155,9 +155,9 @@
 
                   
                   <span class="file-info-divider"></span>
-                  Modified <relative-time datetime="Thu, 27 Feb 2025 01:35:46 &#43;0000"
+                  Modified <relative-time datetime="Fri, 28 Feb 2025 04:42:18 &#43;0000"
                     class="no-wrap">
-                    Thu, 27 Feb 2025 01:35:46 &#43;0000</relative-time>
+                    Fri, 28 Feb 2025 04:42:18 &#43;0000</relative-time>
                   
                 </div>
               </div>
@@ -187,7 +187,7 @@
                         </div>
                       </div>
                     </details-menu>
-                      24 Words
+                      23 Words
                     
 
                   </div>
@@ -219,10 +219,438 @@
 
 
               <div class="Box-body px-5 pb-5" style="z-index: 1">
-                <article class="markdown-body entry-content container-lg"><p>Welcome to my blog! This is my first post.</p>
-<p>Here I can write about anything I want to share.</p>
-<h2 id="some-heading">Some heading</h2>
-<p>More content here&hellip;</p>
+                <article class="markdown-body entry-content container-lg"><p>This is a test page.</p>
+<h2 id="heading">Heading</h2>
+<p>Content</p>
+<h2 id="video-player-test">video player test</h2>
+
+
+
+
+
+
+
+
+
+    
+    
+
+
+
+
+<div class="video-container">
+  
+  <h3 class="video-title">Mp4</h3>
+  
+  
+  <div class="video-wrapper">
+    <video id="91e55ebab24bfa31a96dddaba694532a" preload="metadata">
+      <source src="https://tsiyukino.github.io/blog/video/video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    
+    <div class="loading-spinner" id="loading-91e55ebab24bfa31a96dddaba694532a"></div>
+    <div class="buffering-indicator" id="buffering-91e55ebab24bfa31a96dddaba694532a">Buffering...</div>
+    
+    <div class="video-controls" id="controls-91e55ebab24bfa31a96dddaba694532a">
+      <button class="control-button" id="play-91e55ebab24bfa31a96dddaba694532a">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+      </button>
+      
+      <div class="progress-container" id="progress-container-91e55ebab24bfa31a96dddaba694532a">
+        <div class="progress-bar" id="progress-bar-91e55ebab24bfa31a96dddaba694532a"></div>
+      </div>
+      
+      <div class="time-display" id="time-91e55ebab24bfa31a96dddaba694532a">0:00 / 0:00</div>
+      
+      <div class="volume-container">
+        <button class="control-button" id="mute-91e55ebab24bfa31a96dddaba694532a">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          </svg>
+        </button>
+        
+        <div class="volume-slider" id="volume-slider-91e55ebab24bfa31a96dddaba694532a">
+          <div class="volume-level" id="volume-level-91e55ebab24bfa31a96dddaba694532a"></div>
+        </div>
+      </div>
+      
+      <div class="fullscreen-container">
+        <button class="control-button" id="fullscreen-91e55ebab24bfa31a96dddaba694532a">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<style>
+  
+  :root {
+    --text-color: #24292e;
+    --bg-color: #ffffff;
+    --line-color: #586069;
+    --strong-color: #d73a49;
+    --weak-color: #22863a;
+    --tick-color: #6a737d;
+    --grid-color: #eaecef;
+    --section-color: #f6f8fa;
+    
+     
+    --player-bg: var(--section-color);
+    --controls-bg: rgba(234, 236, 239, 0.8);
+    --progress-bg: var(--grid-color);
+    --progress-filled: var(--strong-color);
+    --button-color: var(--line-color);
+    --button-hover: var(--text-color);
+    --time-color: var(--text-color);
+    --volume-bg: var(--grid-color);
+    --volume-filled: var(--line-color);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text-color: #c9d1d9;
+      --bg-color: #0d1117;
+      --line-color: #8b949e;
+      --strong-color: #ff7b72;
+      --weak-color: #7ee787;
+      --tick-color: #6e7681;
+      --grid-color: #21262d;
+      --section-color: #161b22;
+      
+       
+      --player-bg: var(--section-color);
+      --controls-bg: rgba(22, 27, 34, 0.8);
+      --progress-bg: var(--grid-color);
+      --progress-filled: var(--strong-color);
+    }
+  }
+  
+  .video-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 10px;
+  }
+  
+  .video-container {
+    margin-bottom: 2rem;
+  }
+  
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--player-bg);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .video-wrapper video {
+    width: 100%;
+    display: block;
+  }
+  
+  .video-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: var(--controls-bg);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    transition: opacity 0.3s;
+    opacity: 0;
+  }
+  
+  .video-wrapper:hover .video-controls {
+    opacity: 1;
+  }
+  
+  .progress-container {
+    flex: 1;
+    height: 8px;
+    background-color: var(--progress-bg);
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 10px;
+    position: relative;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    background-color: var(--progress-filled);
+    width: 0;
+    border-radius: 4px;
+    transition: width 0.1s linear;
+  }
+  
+  .control-button {
+    background: none;
+    border: none;
+    color: var(--button-color);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 5px;
+    margin: 0 5px;
+    border-radius: 4px;
+    transition: color 0.2s, background-color 0.2s;
+  }
+  
+  .control-button:hover {
+    color: var(--button-hover);
+    background-color: rgba(128, 128, 128, 0.1);
+  }
+  
+  .time-display {
+    color: var(--time-color);
+    font-size: 14px;
+    margin: 0 10px;
+    min-width: 95px;
+    text-align: center;
+  }
+  
+  .volume-container {
+    display: flex;
+    align-items: center;
+    margin: 0 5px;
+  }
+  
+  .volume-slider {
+    width: 80px;
+    height: 4px;
+    background-color: var(--volume-bg);
+    border-radius: 2px;
+    margin-left: 5px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .volume-level {
+    height: 100%;
+    background-color: var(--volume-filled);
+    width: 100%;
+    border-radius: 2px;
+  }
+  
+  .fullscreen-container {
+    margin-left: auto;
+  }
+  
+  @media (max-width: 600px) {
+    .progress-container {
+      flex-basis: 100%;
+      margin: 10px 0;
+    }
+    
+    .volume-container {
+      margin-left: auto;
+    }
+    
+    .fullscreen-container {
+      margin-left: 5px;
+    }
+    
+    .time-display {
+      font-size: 12px;
+      min-width: 85px;
+    }
+  }
+  
+   
+  .loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--grid-color);
+    border-top: 4px solid var(--strong-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: none;
+  }
+  
+  @keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+  
+   
+  .buffering-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--controls-bg);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    display: none;
+  }
+</style>
+  
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    initializeVideoPlayer('91e55ebab24bfa31a96dddaba694532a');
+  });
+  
+  function initializeVideoPlayer(videoId) {
+    const video = document.getElementById(videoId);
+    if (!video) return;
+    
+    const videoWrapper = video.parentElement;
+    const playPauseButton = document.getElementById('play-' + videoId);
+    const muteUnmuteButton = document.getElementById('mute-' + videoId);
+    const fullscreenButton = document.getElementById('fullscreen-' + videoId);
+    const progressContainer = document.getElementById('progress-container-' + videoId);
+    const progressBar = document.getElementById('progress-bar-' + videoId);
+    const timeDisplay = document.getElementById('time-' + videoId);
+    const volumeSlider = document.getElementById('volume-slider-' + videoId);
+    const volumeLevel = document.getElementById('volume-level-' + videoId);
+    const loadingSpinner = document.getElementById('loading-' + videoId);
+    const bufferingIndicator = document.getElementById('buffering-' + videoId);
+    
+    
+    video.volume = 0.75;
+    updateVolumeUI();
+    
+    
+    playPauseButton.addEventListener('click', togglePlayPause);
+    video.addEventListener('click', togglePlayPause);
+    
+    function togglePlayPause() {
+      if (video.paused || video.ended) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    }
+    
+    video.addEventListener('play', function() {
+      playPauseButton.innerHTML = `
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="6" y="4" width="4" height="16"></rect>
+          <rect x="14" y="4" width="4" height="16"></rect>
+        </svg>
+      `;
+    });
+    
+    video.addEventListener('pause', function() {
+      playPauseButton.innerHTML = `
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+      `;
+    });
+    
+    
+    video.addEventListener('timeupdate', updateProgress);
+    progressContainer.addEventListener('click', setProgress);
+    
+    function updateProgress() {
+      const percent = (video.currentTime / video.duration) * 100;
+      progressBar.style.width = `${percent}%`;
+      
+      const currentMinutes = Math.floor(video.currentTime / 60);
+      const currentSeconds = Math.floor(video.currentTime % 60);
+      const durationMinutes = Math.floor(video.duration / 60) || 0;
+      const durationSeconds = Math.floor(video.duration % 60) || 0;
+      
+      timeDisplay.textContent = `${currentMinutes}:${currentSeconds.toString().padStart(2, '0')} / ${durationMinutes}:${durationSeconds.toString().padStart(2, '0')}`;
+    }
+    
+    function setProgress(e) {
+      const rect = progressContainer.getBoundingClientRect();
+      const pos = (e.clientX - rect.left) / rect.width;
+      video.currentTime = pos * video.duration;
+    }
+    
+    
+    muteUnmuteButton.addEventListener('click', toggleMute);
+    volumeSlider.addEventListener('click', setVolume);
+    
+    function toggleMute() {
+      video.muted = !video.muted;
+      updateVolumeUI();
+    }
+    
+    function setVolume(e) {
+      const rect = volumeSlider.getBoundingClientRect();
+      let volume = (e.clientX - rect.left) / rect.width;
+      
+      
+      volume = Math.max(0, Math.min(1, volume));
+      
+      video.volume = volume;
+      video.muted = volume === 0;
+      updateVolumeUI();
+    }
+    
+    function updateVolumeUI() {
+      if (video.muted || video.volume === 0) {
+        volumeLevel.style.width = '0%';
+        muteUnmuteButton.innerHTML = `
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        `;
+      } else {
+        volumeLevel.style.width = `${video.volume * 100}%`;
+        muteUnmuteButton.innerHTML = `
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          </svg>
+        `;
+      }
+    }
+    
+    
+    fullscreenButton.addEventListener('click', toggleFullscreen);
+    
+    function toggleFullscreen() {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        videoWrapper.requestFullscreen();
+      }
+    }
+    
+    
+    video.addEventListener('waiting', function() {
+      loadingSpinner.style.display = 'block';
+      bufferingIndicator.style.display = 'block';
+    });
+    
+    video.addEventListener('canplay', function() {
+      loadingSpinner.style.display = 'none';
+      bufferingIndicator.style.display = 'none';
+    });
+    
+    video.addEventListener('playing', function() {
+      loadingSpinner.style.display = 'none';
+      bufferingIndicator.style.display = 'none';
+    });
+  }
+</script>
 </article>
               </div>
             </div>
